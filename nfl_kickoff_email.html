@@ -266,6 +266,17 @@
         background-color: #07090e;
         line-height: 1.8;
     }
+
+    /* Flashing brand color animation */
+    @keyframes flashBrand {
+        0%, 100% { color: #ffffff; }
+        50% { color: #FE2659; }
+    }
+    .flash-brand {
+        animation: flashBrand 2s infinite;
+        color: #ffffff; /* Fallback for unsupported clients */
+        font-weight: bold;
+    }
 </style>
 </head>
 <body>
@@ -296,7 +307,7 @@
                     
                     <p class="lead-paragraph">The wait is over—kickoff is finally here. But watching your favorite team shouldn't mean hunting for illegal streams or paying for five different streaming platforms just to see the games.</p>
 
-                    <p>Whether it's Monday Night Football on ESPN, Thursday Night games, or Sunday local broadcasts on CBS, FOX, and NBC, <strong>TotalTv delivers all of them starting at just $9/month</strong>. No contracts, no blackouts, and no setup fees.</p>
+                    <p>Whether it's Monday Night Football on ESPN, Thursday Night games, or Sunday local broadcasts on CBS, FOX, and NBC, <strong><span class="flash-brand">TotalTv</span> delivers all of them starting at just <span class="flash-brand">$9/month</span></strong>. No contracts, no blackouts, and no setup fees.</p>
 
                     <!-- Headline Pitching Value Proposition -->
                     <div class="nfl-special-box">

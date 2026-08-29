@@ -32,10 +32,9 @@
         },
         "sheetName": {
           "__rl": true,
-          "value": 1037714867,
+          "value": "Mega",
           "mode": "list",
-          "cachedResultName": "Mega",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1037714867"
+          "cachedResultName": "Mega"
         },
         "options": {}
       },
@@ -145,9 +144,8 @@
         "sheetName": {
           "__rl": true,
           "cachedResultName": "Mega",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1037714867",
           "mode": "list",
-          "value": 1037714867
+          "value": "Mega"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -185,7 +183,7 @@
         "nodeCredentialType": "googleSheetsOAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({\n  requests: [\n    {\n      repeatCell: {\n        range: {\n          sheetId: 1037714867,\n          startRowIndex: ($json.row_number - 1),\n          endRowIndex: $json.row_number,\n          startColumnIndex: 5,\n          endColumnIndex: 6\n        },\n        cell: {\n          userEnteredFormat: {\n            textFormat: {\n              foregroundColor: {\n                red: 0.85,\n                green: 0.1,\n                blue: 0.1\n              }\n            }\n          }\n        },\n        fields: \"userEnteredFormat.textFormat.foregroundColor\"\n      }\n    }\n  ]\n}) }}",
+        "jsonBody": "={{ JSON.stringify({\n  requests: [\n    {\n      repeatCell: {\n        range: {\n          sheetId: 0,\n          startRowIndex: ($json.row_number - 1),\n          endRowIndex: $json.row_number,\n          startColumnIndex: 5,\n          endColumnIndex: 6\n        },\n        cell: {\n          userEnteredFormat: {\n            textFormat: {\n              foregroundColor: {\n                red: 0.85,\n                green: 0.1,\n                blue: 0.1\n              }\n            }\n          }\n        },\n        fields: \"userEnteredFormat.textFormat.foregroundColor\"\n      }\n    }\n  ]\n}) }}",
         "options": {}
       },
       "id": "96800c78-5530-4a4d-bc29-ce0ed078f666",
@@ -367,10 +365,9 @@
         },
         "sheetName": {
           "__rl": true,
-          "value": 1037714867,
+          "value": "Mega",
           "mode": "list",
-          "cachedResultName": "Mega",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1037714867"
+          "cachedResultName": "Mega"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -574,10 +571,9 @@
         },
         "sheetName": {
           "__rl": true,
-          "value": 1037714867,
+          "value": "Mega",
           "mode": "list",
-          "cachedResultName": "Mega",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1037714867"
+          "cachedResultName": "Mega"
         },
         "columns": {
           "mappingMode": "defineBelow",

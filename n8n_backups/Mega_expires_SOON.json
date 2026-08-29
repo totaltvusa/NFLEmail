@@ -1,5 +1,5 @@
 {
-  "name": "Mega expires SOON (Vence 4 d\u00edas)",
+  "name": "Mega expires SOON (Vence 4 días)",
   "nodes": [
     {
       "parameters": {
@@ -7,7 +7,7 @@
           "interval": [
             {
               "triggerAtHour": 9,
-              "triggerAtMinute": 6
+              "triggerAtMinute": 0
             }
           ]
         }
@@ -15,8 +15,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -656,
-        448
+        -900,
+        300
       ],
       "id": "af79288a-7284-43fe-bcb2-d016829d3726",
       "name": "Schedule Trigger"
@@ -42,8 +42,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -432,
-        448
+        -680,
+        300
       ],
       "id": "a806d6a6-df25-4e17-9d82-01d3683984b4",
       "name": "Get row(s) in sheet",
@@ -56,71 +56,16 @@
     },
     {
       "parameters": {
-        "sendTo": "={{ $json.recipient_email }}",
-        "subject": "={{ $json.First }}, Your Total Tv subscription is about to EXPIRE SOON",
-        "message": "={{ (() => {\n  const item = $('If es link o zelle?').item.json;\n  const getAmount = (obj) => {\n    if (!obj) return 0;\n    for (const k of Object.keys(obj)) {\n      if (/monto|amount/i.test(k)) {\n        const v = obj[k];\n        if (v !== undefined && v !== null && v !== '') {\n          const n = parseFloat(String(v).replace(/[^0-9.]/g, ''));\n          if (!isNaN(n) && n > 0) return n;\n        }\n      }\n    }\n    return 0;\n  };\n  const numAmount = getAmount(item);\n  const cleanAmount = numAmount > 0 ? numAmount.toFixed(2) : (item['Ultimo Monto'] || item['ultimo monto'] || '0.00');\n  const cryptoAmount = numAmount > 0 ? (numAmount * 0.8).toFixed(2) : '0.00';\n  const firstName = $json.First || item.Nombre || item.nombre || 'Customer';\n  const venceRaw = $('Get row(s) in sheet').item.json.Vence || $('Get row(s) in sheet').item.json.vence || '';\n  const dateFormatted = venceRaw ? new Date(venceRaw.toString().split(' ')[0].split('T')[0] + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) : 'soon';\n  const checkoutUrl = $('Edit Fields').item.json.checkout_url || '#';\n\n  return `Dear ${firstName},<br>\n<br>\nYour Total TV subscription is about to expire on ${dateFormatted}.<br>\n<br>\nPlease note <strong>we no longer accept credit or debit cards</strong>. We apologize for the inconvenience. However, this change completely eliminates the 7% card processing fee.<br>\n<br>\nTo give you more flexibility, we offer three convenient ways to complete your renewal:<br>\n<br>\n* <strong>Zelle</strong><br>\nSimply use the banking details provided below to send your payment.<br>\n* <strong>Cash App</strong><br>\nPlace your renewal order on our website and select Cash App at checkout.<br>\n* <strong>Crypto (An even better deal! \ud83d\udca1)</strong><br>\nPay with USDT, BTC, etc., and save 20% on every renewal!<br>\n<br>\nPlease let us know once you have submitted your payment so we can keep an eye on your activation.<br>\nThank you so much for your understanding and for choosing us!<br>\n<br>\nBest regards,<br>\n<br>\nThe Total TV Team<br>\n<br>\n------------------<br>\n<br>\n<h3>\ud83d\udcb5 OPTION 1: Zelle</h3>\nPlease send <strong>$${cleanAmount}</strong> to:<br>\n<strong>acalimanr@gmail.com</strong><br>\n<br>\nHere's the Zelle QR:<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Zelle%20USA.jpg\" width=\"313\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" /><br>\n<br>\n------------------<br>\n<br>\n<h3>\ud83d\udcf2 OPTION 2: Pay using Cash App</h3>\nIf you wish to pay using Cash App, please place an order on our website <a href=\"http://totaltvusa.com/\">totaltvusa.com</a> and select <strong>Cash App</strong> as your payment method at checkout.<br>\n<em>Please note: This payment method will add a 10% payment processing fee to your order total.</em><br>\n<br>\n------------------<br>\n<br>\n<h3>\ud83d\udca1 OPTION 3: Crypto (Save 20% on every renewal!)</h3>\n<a href=\"${checkoutUrl}\">Click here to pay $${cryptoAmount} via Crypto</a>.<br>\n<br>\nAlternatively, you can pay by sending <strong>$${cryptoAmount}</strong> on Bitcoin directly to our secure wallet address using your preferred crypto wallet (such as <strong>MetaMask, Coinbase</strong>, etc.), or by buying and sending Bitcoin through <strong>Cash App</strong> or <strong>PayPal</strong>:<br>\n<br>\n<strong>Our Bitcoin Wallet Address:</strong> <code>13w3KWDYDDV8aCq7NTRxuHQ8eb5onHQzAo</code><br>\n<br>\nIf you are using Cash App or PayPal, here are two short 2-minute video tutorials to guide you step-by-step:<br>\n* <a href=\"https://www.youtube.com/watch?v=uqklYk2bs1o\">How to pay using Cash App</a><br>\n* <a href=\"https://www.youtube.com/watch?v=56tarYqos7w\">How to pay using PayPal</a><br>\n<br>\n------------------<br>\n<br>\nOr place a new order on our website: <a href=\"http://totaltvusa.com/\">totaltvusa.com</a><br>\n<br>\n-----------<br>\nQuestions? <a href=\"https://wa.me/13059861096?text=Hello!,%20%20I%20have%20a%20question:%20\">Chat with us!</a><br>\n<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Logo_TotalTv_1\" width=\"200\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" />`;\n})() }}",
-        "options": {
-          "bccList": "totaltvusa@gmail.com"
-        }
+        "jsCode": "const now = new Date();\n// Calculate target date +4 days in America/Caracas (UTC-4)\nconst caracasOffset = -4 * 60;\nconst localNow = new Date(now.getTime() + (now.getTimezoneOffset() + caracasOffset) * 60000);\n\nconst targetDate = new Date(localNow.getTime());\ntargetDate.setDate(targetDate.getDate() + 4);\n\nconst pad = (n) => String(n).padStart(2, '0');\nconst targetStr = `${targetDate.getFullYear()}-${pad(targetDate.getMonth() + 1)}-${pad(targetDate.getDate())}`;\n\nconst getAmount = (obj) => {\n  if (!obj) return 0;\n  for (const k of Object.keys(obj)) {\n    if (/monto|amount/i.test(k)) {\n      const v = obj[k];\n      if (v !== undefined && v !== null && v !== '') {\n        const n = parseFloat(String(v).replace(/[^0-9.]/g, ''));\n        if (!isNaN(n) && n > 0) return n;\n      }\n    }\n  }\n  return 0;\n};\n\nconst normalizeDate = (val) => {\n  if (!val) return '';\n  const raw = String(val).trim().split(' ')[0].split('T')[0];\n  const p = raw.split(/[\\/\\-]/);\n  if (p.length === 3) {\n    return p[0].length === 4\n      ? `${p[0]}-${p[1].padStart(2, '0')}-${p[2].padStart(2, '0')}`\n      : `${p[2].length === 2 ? '20' + p[2] : p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}`;\n  }\n  return raw;\n};\n\nconst results = [];\nconst items = $input.all();\n\nfor (let i = 0; i < items.length; i++) {\n  const row = items[i].json;\n  const rawVence = row.Vence || row.vence || row.VENCE || '';\n  const venceIso = normalizeDate(rawVence);\n  const play = String(row.PLAY || row.Play || row.play || '').trim();\n  const email = String(row.Email || row.email || '').trim();\n  const usuario = String(row.Usuario || row.usuario || row.USUARIO || '').trim();\n\n  if (venceIso === targetStr && play !== 'SENT4' && usuario !== '') {\n    const numAmount = getAmount(row) || 20;\n    const cleanAmount = numAmount.toFixed(2);\n    const cryptoNum = Number((numAmount * 0.8).toFixed(2));\n    const cryptoAmount = cryptoNum.toFixed(2);\n    const nombre = String(row.Nombre || row.nombre || 'Customer').trim();\n    const pagaPor = String(row['Paga por'] || row['paga por'] || '').trim().toLowerCase();\n    const telefono = String(row['Teléfono'] || row['teléfono'] || row.Telefono || row.telefono || row.Phone || '').replace(/\\D/g, '');\n\n    let dateFormatted = 'soon';\n    try {\n      const parts = venceIso.split('-');\n      const d = new Date(parts[0], parts[1] - 1, parts[2]);\n      dateFormatted = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });\n    } catch (e) {\n      dateFormatted = venceIso;\n    }\n\n    results.push({\n      json: {\n        ...row,\n        row_number: i + 2,\n        Nombre: nombre,\n        Email: email,\n        Usuario: usuario,\n        Teléfono: telefono,\n        Vence: venceIso,\n        vence_formatted: dateFormatted,\n        Ultimo_Monto: cleanAmount,\n        Crypto_Monto: cryptoAmount,\n        crypto_num: cryptoNum,\n        is_zelle: (pagaPor === 'zelle'),\n        checkout_url: 'http://totaltvusa.com/'\n      }\n    });\n  }\n}\n\nreturn results;"
       },
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 2.2,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
-        688,
-        352
-      ],
-      "id": "0bf3d14a-213f-49dd-a43c-6575cd708c65",
-      "name": "Send a message",
-      "webhookId": "90fccc12-ae85-4a7e-a7cc-e3913252500a",
-      "onError": "continueRegularOutput",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "CXK8oN7vdrIzstyd",
-          "name": "Gmail account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 3
-          },
-          "conditions": [
-            {
-              "id": "date-soon",
-              "leftValue": "={{ (() => { const raw = ($json.Vence || $json.vence || $json.VENCE || '').toString().trim().split(' ')[0].split('T')[0]; const p = raw.split(/[\\/\\-]/); if (p.length === 3) { return p[0].length === 4 ? `${p[0]}-${p[1].padStart(2, '0')}-${p[2].padStart(2, '0')}` : `${p[2].length === 2 ? '20' + p[2] : p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}`; } return raw; })() }}",
-              "rightValue": "={{ $now.setZone('America/Caracas').plus({ days: 4 }).toFormat('yyyy-MM-dd') }}",
-              "operator": {
-                "type": "string",
-                "operation": "equals"
-              }
-            },
-            {
-              "id": "play-sent4",
-              "leftValue": "={{ ($json.PLAY || $json.Play || $json.play || '') }}",
-              "rightValue": "SENT4",
-              "operator": {
-                "type": "string",
-                "operation": "notEquals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        -208,
-        448
+        -460,
+        300
       ],
       "id": "1087b7c5-63a7-4e26-aa2d-f1027112f4e8",
-      "name": "If hay gente para enviar?"
+      "name": "Filtrar y Normalizar Vence 4 Días"
     },
     {
       "parameters": {
@@ -134,12 +79,11 @@
           "conditions": [
             {
               "id": "paga-por-zelle",
-              "leftValue": "={{ ($json['Paga por'] || $json['paga por'] || $json['PAGA POR'] || '').toString().toLowerCase().trim() }}",
-              "rightValue": "zelle",
+              "leftValue": "={{ $json.is_zelle }}",
+              "rightValue": true,
               "operator": {
-                "type": "string",
-                "operation": "notEquals",
-                "singleValue": true
+                "type": "boolean",
+                "operation": "equals"
               }
             }
           ],
@@ -150,11 +94,37 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        16,
-        448
+        -220,
+        300
       ],
       "id": "3c63ab53-19f5-4cb9-92d7-a8aee44ea581",
       "name": "If es link o zelle?"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "={{ $json.Nombre }}, Your Total Tv subscription is about to EXPIRE SOON",
+        "message": "=Dear {{ $json.Nombre }},<br>\n<br>\nYour Total Tv subscription is about to expire on {{ $json.vence_formatted }}.<br>\n<br>\nIf you want to complete payment for your renewal using Zelle, please send <strong>${{ $json.Ultimo_Monto }}</strong> to:<br>\n<br>\n<strong>acalimanr@gmail.com</strong><br>\n<br>\nHere's the Zelle QR:<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Zelle%20USA.jpg\" width=\"313\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" /><br>\n<br>\nOr place a new order on our website: <a href=\"http://totaltvusa.com/\">totaltvusa.com</a><br>\n<br>\nThank you for choosing us!<br>\n<br>\n-----------<br>\nQuestions? <a href=\"https://wa.me/13059861096?text=Hello!,%20%20I%20have%20a%20question:%20\">Chat with us!</a><br>\n<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Logo_TotalTv_1\" width=\"200\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" />",
+        "options": {
+          "appendAttribution": false,
+          "bccList": "totaltvusa@gmail.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        180
+      ],
+      "id": "f4368362-c575-4950-8b9d-937ff93339f2",
+      "name": "Send a message Zelle",
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "CXK8oN7vdrIzstyd",
+          "name": "Gmail account"
+        }
+      }
     },
     {
       "parameters": {
@@ -176,336 +146,30 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Usuario": "={{ $('If hay gente para enviar?').item.json.Usuario }}",
+            "Usuario": "={{ $json.Usuario }}",
             "PLAY": "SENT4"
           },
           "matchingColumns": [
             "Usuario"
-          ],
-          "schema": [
-            {
-              "id": "Nombre",
-              "displayName": "Nombre",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Apellido",
-              "displayName": "Apellido",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Tel\u00e9fono",
-              "displayName": "Tel\u00e9fono",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Usuario",
-              "displayName": "Usuario",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "Clave",
-              "displayName": "Clave",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Vence",
-              "displayName": "Vence",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "1ra compra",
-              "displayName": "1ra compra",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Conns/xxx",
-              "displayName": "Conns/xxx",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Paga por",
-              "displayName": "Paga por",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Email",
-              "displayName": "Email",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Observaci\u00f3n",
-              "displayName": "Observaci\u00f3n",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Ultimo Monto",
-              "displayName": "Ultimo Monto",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "PLAY",
-              "displayName": "PLAY",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "row_number",
-              "displayName": "row_number",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "readOnly": true,
-              "removed": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
+          ]
         },
         "options": {}
       },
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        912,
-        448
+        340,
+        180
       ],
       "id": "8ce10c0a-4b0b-4667-a70c-1b46d95f3fcf",
-      "name": "Update row in sheet",
+      "name": "Update row in sheet Zelle",
+      "onError": "continueRegularOutput",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "Pw5wN2L5UopOruaj",
           "name": "Google Sheets account"
         }
       }
-    },
-    {
-      "parameters": {
-        "sendTo": "={{ $json.Email || $json.email }}",
-        "subject": "={{ $json.Nombre || $json.nombre }}, Your Total Tv subscription is about to EXPIRE SOON",
-        "message": "=Dear {{ $json.Nombre || $json.nombre }},<br>\n<br>\nYour Total Tv subscription is about to expire soon.<br>\n<br>\nIf you want to complete payment for your renewal using Zelle, please send ${{ (() => { const getAmount = (obj) => { if (!obj) return ''; for (const k of Object.keys(obj)) { if (/monto|amount/i.test(k)) { const v = obj[k]; if (v !== undefined && v !== null && v !== '') { const n = parseFloat(String(v).replace(/[^0-9.]/g, '')); if (!isNaN(n) && n > 0) return n.toFixed(2); } } } return ''; }; return getAmount($json) || $json['Ultimo Monto'] || $json['ultimo monto'] || $json.Amount || ''; })() }} to:<br>\n<br>\nacalimanr@gmail.com<br>\n<br>\nHere's the Zelle QR:<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Zelle%20USA.jpg\" width=\"313\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" /><br>\n<br>\nOr place a new order on our website: <a href=\"http://totaltvusa.com/\">totaltvusa.com</a><br>\n<br>\nThank you for choosing us!<br>\n<br>\n-----------<br>\nQuestions? <a href=\"https://wa.me/13059861096?text=Hello!,%20%20I%20have%20a%20question:%20\">Chat with us!</a><br>\n<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Logo_TotalTv_1\" width=\"200\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" />",
-        "options": {
-          "appendAttribution": false,
-          "bccList": "totaltvusa@gmail.com"
-        }
-      },
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 2.2,
-      "position": [
-        688,
-        544
-      ],
-      "id": "f4368362-c575-4950-8b9d-937ff93339f2",
-      "name": "Send a message Zelle",
-      "webhookId": "88111674-0161-4b1a-af7f-be04146edbc3",
-      "onError": "continueRegularOutput",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "CXK8oN7vdrIzstyd",
-          "name": "Gmail account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "72f0edb7-fad2-450b-9e05-b06044b319d2",
-              "name": "recipient_email",
-              "value": "={{ $('If es link o zelle?').item.json.Email || $('If es link o zelle?').item.json.email }}",
-              "type": "string"
-            },
-            {
-              "id": "a6fe8ffa-5ed9-4a2c-afb4-06bd828143e4",
-              "name": "First",
-              "value": "={{ $('If es link o zelle?').item.json.Nombre || $('If es link o zelle?').item.json.nombre }}",
-              "type": "string"
-            },
-            {
-              "id": "fc0c50d7-225a-44cb-8a89-cb5e6d7da0f4",
-              "name": "checkout_url",
-              "value": "={{ $json.invoice_url }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        464,
-        352
-      ],
-      "id": "76e62c1a-74c0-4112-9bf3-d197918fcc80",
-      "name": "Edit Fields"
-    },
-    {
-      "parameters": {
-        "resource": "messages-api",
-        "instanceName": "7865486856",
-        "remoteJid": "=+{{ $('If es link o zelle?').item.json.tel\u00e9fono }}",
-        "messageText": "={{ 'Dear ' + $('If es link o zelle?').item.json.nombre + ',\\n\\n\ud83c\udfac\ud83d\udcfa Your Total Tv subscription is about to expire soon.\\n\\nIf you want to complete payment for your renewal using Zelle, please send $' + $('If es link o zelle?').item.json[\"\u00faltima monto\"] + ' to:\\n\\nacalimanr@gmail.com\\n\\nOr place a new order on our website: totaltvusa.com\\n\\nThank you for choosing us!\ud83d\ude4f\ud83c\udffc\\n\\n-----------\\nQuestions? Chat with us: https://wa.me/13059861096' }}",
-        "options_message": {
-          "linkPreview": false
-        }
-      },
-      "type": "n8n-nodes-evolution-api.evolutionApi",
-      "typeVersion": 1,
-      "position": [
-        -656,
-        768
-      ],
-      "id": "68521371-3029-418f-8a5c-75672b220923",
-      "name": "Enviar Zelle a Cliente",
-      "alwaysOutputData": true,
-      "retryOnFail": true,
-      "onError": "continueRegularOutput",
-      "credentials": {
-        "evolutionApi": {
-          "id": "vtMtCCsADg27hjPA",
-          "name": "Evolution DigitelTTV"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "messages-api",
-        "operation": "send-image",
-        "instanceName": "7865486856",
-        "remoteJid": "=+{{ $('If es link o zelle?').item.json.tel\u00e9fono }}",
-        "media": "https://raw.githubusercontent.com/totaltvusa/images/main/Zelle%20USA.jpg",
-        "options_message": {}
-      },
-      "type": "n8n-nodes-evolution-api.evolutionApi",
-      "typeVersion": 1,
-      "position": [
-        -432,
-        768
-      ],
-      "id": "43c5f510-83f3-4ae5-851f-7a05bfdaaf8d",
-      "name": "Enviar imagem",
-      "onError": "continueRegularOutput",
-      "credentials": {
-        "evolutionApi": {
-          "id": "vtMtCCsADg27hjPA",
-          "name": "Evolution DigitelTTV"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "messages-api",
-        "instanceName": "7865486856",
-        "remoteJid": "=+{{ $('If es link o zelle?').item.json.tel\u00e9fono }}",
-        "messageText": "=Dear {{ $('Edit Fields').item.json.First }},\n\nYour *Total TV* subscription is about to expire soon. Renew now to keep enjoying unlimited entertainment without interruption \ud83c\udfac\ud83d\udcfa\n\n\ud83d\udcb3 *Please complete your payment here:*\n{{ $(\"BuscarLinkdePago\").first().json.link }}\n\nOr place a new order on our website:\nhttp://totaltvusa.com\n\nThank you for choosing Total TV! \ud83d\ude4f\n-----------\nQuestions? Chat with us: https://wa.me/13059861096",
-        "options_message": {
-          "linkPreview": false
-        }
-      },
-      "type": "n8n-nodes-evolution-api.evolutionApi",
-      "typeVersion": 1,
-      "position": [
-        -304,
-        -96
-      ],
-      "id": "50cdefdc-17c1-41a5-8ea1-5ee00f6423c2",
-      "name": "Enviar Link a Cliente",
-      "alwaysOutputData": true,
-      "retryOnFail": true,
-      "onError": "continueRegularOutput",
-      "credentials": {
-        "evolutionApi": {
-          "id": "vtMtCCsADg27hjPA",
-          "name": "Evolution DigitelTTV"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://project1-payram.efebpb.easypanel.host/api/v1/payment",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "API-Key",
-              "value": "aebb77c33eda3a8eb4c36d8e822a231b"
-            },
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"customerEmail\": \"{{ $json.Email || $json.email }}\",\n  \"customerID\": \"{{ ($json.Tel\u00e9fono || $json.tel\u00e9fono || $json.telefono || $json.Telefono || $json.Phone || '').toString().replace(/\\D/g, '') }}\",\n  \"amountInUSD\": {{ (() => { const getAmount = (obj) => { if (!obj) return 0; for (const k of Object.keys(obj)) { if (/monto|amount/i.test(k)) { const v = obj[k]; if (v !== undefined && v !== null && v !== '') { const n = parseFloat(String(v).replace(/[^0-9.]/g, '')); if (!isNaN(n) && n > 0) return n; } } } return 0; }; const num = getAmount($json); return num > 0 ? Number((num * 0.8).toFixed(2)) : 20; })() }}\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.3,
-      "position": [
-        -656,
-        128
-      ],
-      "id": "1059dd2b-6496-4bfb-9559-99d37b073a3b",
-      "name": "HTTP Request Payram Link"
     },
     {
       "parameters": {
@@ -526,17 +190,102 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"price_amount\": {{ (() => { const getAmount = (obj) => { if (!obj) return 0; for (const k of Object.keys(obj)) { if (/monto|amount/i.test(k)) { const v = obj[k]; if (v !== undefined && v !== null && v !== '') { const n = parseFloat(String(v).replace(/[^0-9.]/g, '')); if (!isNaN(n) && n > 0) return n; } } } return 0; }; const num = getAmount($json); return num > 0 ? Number((num * 0.8).toFixed(2)) : 20; })() }},\n  \"price_currency\": \"usd\",\n  \"order_id\": \"{{ ($json.Tel\u00e9fono || $json.tel\u00e9fono || $json.telefono || $json.Telefono || $json.Phone || 'order').toString().replace(/\\D/g, '') }}\",\n  \"order_description\": \"Total TV Order #{{ ($json.Tel\u00e9fono || $json.tel\u00e9fono || $json.telefono || $json.Telefono || $json.Phone || '').toString().replace(/\\D/g, '') }}\"\n}",
+        "jsonBody": "={\n  \"price_amount\": {{ $json.crypto_num }},\n  \"price_currency\": \"usd\",\n  \"order_id\": \"{{ $json.Teléfono ? $json.Teléfono : ('ord_' + $json.Usuario.replace(/[^a-zA-Z0-9]/g, '')) }}\",\n  \"order_description\": \"Total TV Order {{ $json.Usuario }}\"\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        240,
-        352
+        80,
+        420
       ],
       "id": "6451b81a-e4e8-410f-8ba9-e012d297c73b",
-      "name": "NowPaymentsLink"
+      "name": "NowPaymentsLink",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const originalItems = $('If es link o zelle?').all(1);\nconst apiResponses = $input.all();\n\nreturn originalItems.map((item, index) => {\n  const invoiceUrl = apiResponses[index]?.json?.invoice_url || 'http://totaltvusa.com/';\n  return {\n    json: {\n      ...item.json,\n      checkout_url: invoiceUrl\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        420
+      ],
+      "id": "76e62c1a-74c0-4112-9bf3-d197918fcc80",
+      "name": "Unir Datos con Link de Pago"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "={{ $json.Nombre }}, Your Total Tv subscription is about to EXPIRE SOON",
+        "message": "=Dear {{ $json.Nombre }},<br>\n<br>\nYour Total TV subscription is about to expire on {{ $json.vence_formatted }}.<br>\n<br>\nPlease note <strong>we no longer accept credit or debit cards</strong>. We apologize for the inconvenience. However, this change completely eliminates the 7% card processing fee.<br>\n<br>\nTo give you more flexibility, we offer three convenient ways to complete your renewal:<br>\n<br>\n* <strong>Zelle</strong><br>\nSimply use the banking details provided below to send your payment.<br>\n* <strong>Cash App</strong><br>\nPlace your renewal order on our website and select Cash App at checkout.<br>\n* <strong>Crypto (An even better deal! 💡)</strong><br>\nPay with USDT, BTC, etc., and save 20% on every renewal!<br>\n<br>\nPlease let us know once you have submitted your payment so we can keep an eye on your activation.<br>\nThank you so much for your understanding and for choosing us!<br>\n<br>\nBest regards,<br>\n<br>\nThe Total TV Team<br>\n<br>\n------------------<br>\n<br>\n<h3>💵 OPTION 1: Zelle</h3>\nPlease send <strong>${{ $json.Ultimo_Monto }}</strong> to:<br>\n<strong>acalimanr@gmail.com</strong><br>\n<br>\nHere's the Zelle QR:<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Zelle%20USA.jpg\" width=\"313\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" /><br>\n<br>\n------------------<br>\n<br>\n<h3>📱 OPTION 2: Pay using Cash App</h3>\nIf you wish to pay using Cash App, please place an order on our website <a href=\"http://totaltvusa.com/\">totaltvusa.com</a> and select <strong>Cash App</strong> as your payment method at checkout.<br>\n<em>Please note: This payment method will add a 10% payment processing fee to your order total.</em><br>\n<br>\n------------------<br>\n<br>\n<h3>💡 OPTION 3: Crypto (Save 20% on every renewal!)</h3>\n<a href=\"{{ $json.checkout_url }}\">Click here to pay ${{ $json.Crypto_Monto }} via Crypto</a>.<br>\n<br>\nAlternatively, you can pay by sending <strong>${{ $json.Crypto_Monto }}</strong> on Bitcoin directly to our secure wallet address using your preferred crypto wallet (such as <strong>MetaMask, Coinbase</strong>, etc.), or by buying and sending Bitcoin through <strong>Cash App</strong> or <strong>PayPal</strong>:<br>\n<br>\n<strong>Our Bitcoin Wallet Address:</strong> <code>13w3KWDYDDV8aCq7NTRxuHQ8eb5onHQzAo</code><br>\n<br>\nIf you are using Cash App or PayPal, here are two short 2-minute video tutorials to guide you step-by-step:<br>\n* <a href=\"https://www.youtube.com/watch?v=uqklYk2bs1o\">How to pay using Cash App</a><br>\n* <a href=\"https://www.youtube.com/watch?v=56tarYqos7w\">How to pay using PayPal</a><br>\n<br>\n------------------<br>\n<br>\nOr place a new order on our website: <a href=\"http://totaltvusa.com/\">totaltvusa.com</a><br>\n<br>\n-----------<br>\nQuestions? <a href=\"https://wa.me/13059861096?text=Hello!,%20%20I%20have%20a%20question:%20\">Chat with us!</a><br>\n<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Logo_TotalTv_1\" width=\"200\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" />",
+        "options": {
+          "appendAttribution": false,
+          "bccList": "totaltvusa@gmail.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        420
+      ],
+      "id": "0bf3d14a-213f-49dd-a43c-6575cd708c65",
+      "name": "Send a message Link",
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "CXK8oN7vdrIzstyd",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0",
+          "mode": "list",
+          "cachedResultName": "Clientes TotalTV",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1037714867,
+          "mode": "list",
+          "cachedResultName": "Mega",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1037714867"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Usuario": "={{ $json.Usuario }}",
+            "PLAY": "SENT4"
+          },
+          "matchingColumns": [
+            "Usuario"
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        740,
+        420
+      ],
+      "id": "e429bbad-c67d-4171-aa34-11fa6a47a111",
+      "name": "Update row in sheet Link",
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Pw5wN2L5UopOruaj",
+          "name": "Google Sheets account"
+        }
+      }
     }
   ],
   "connections": {
@@ -555,14 +304,14 @@
       "main": [
         [
           {
-            "node": "If hay gente para enviar?",
+            "node": "Filtrar y Normalizar Vence 4 Días",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "If hay gente para enviar?": {
+    "Filtrar y Normalizar Vence 4 Días": {
       "main": [
         [
           {
@@ -577,25 +326,14 @@
       "main": [
         [
           {
-            "node": "NowPaymentsLink",
+            "node": "Send a message Zelle",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Send a message Zelle",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Send a message": {
-      "main": [
-        [
-          {
-            "node": "Update row in sheet",
+            "node": "NowPaymentsLink",
             "type": "main",
             "index": 0
           }
@@ -606,29 +344,7 @@
       "main": [
         [
           {
-            "node": "Update row in sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "Send a message",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Enviar Zelle a Cliente": {
-      "main": [
-        [
-          {
-            "node": "Enviar imagem",
+            "node": "Update row in sheet Zelle",
             "type": "main",
             "index": 0
           }
@@ -639,7 +355,29 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "Unir Datos con Link de Pago",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unir Datos con Link de Pago": {
+      "main": [
+        [
+          {
+            "node": "Send a message Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message Link": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet Link",
             "type": "main",
             "index": 0
           }
@@ -653,10 +391,5 @@
     "binaryMode": "separate",
     "availableInMCP": true,
     "timezone": "America/Caracas"
-  },
-  "meta": {
-    "templateCredsSetupCompleted": true,
-    "aiBuilderAssisted": true,
-    "builderVariant": "mcp"
   }
 }

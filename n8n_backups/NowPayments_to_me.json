@@ -1,0 +1,117 @@
+{
+  "id": "uD5sM2ruGXYSlpY3",
+  "name": "NowPayments to me",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nowpayments",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "526c972f-e378-4e6b-bea3-64c63b2208c9",
+      "name": "Webhook",
+      "webhookId": "8386a923-4115-40c7-a26c-85d68958acac"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b2a996e1-e8f3-4afe-9152-62debcfee8ba",
+              "leftValue": "={{ $json.body.payment_status }}",
+              "rightValue": "finished",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "ea3d1bf5-f7ce-41ff-a667-3a84333e392f",
+              "leftValue": "={{ $json.body.payment_status }}",
+              "rightValue": "confirming",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "39697aee-fa0d-494d-853c-0ae66993a6a6",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "40371837",
+        "text": "={{ \n  ($json.body.payment_status === 'finished' ? '✅ <b>¡PAGO COMPLETADO!</b>' : '⏳ <b>PAGO EN PROCESO (CONFIRMANDO)</b>') + '\\n\\n' +\n  '📊 <b>Estado:</b> ' + $json.body.payment_status.toUpperCase() + '\\n' +\n  '🆔 <b>Orden:</b> <code>' + ($json.body.order_id || 'N/A') + '</code>\\n' +\n  '💵 <b>Monto Fiat:</b> $' + ($json.body.price_amount || '0') + ' ' + ($json.body.price_currency || 'USD').toUpperCase() + '\\n' +\n  '🪙 <b>Pagado en Crypto:</b> ' + ($json.body.pay_amount || '0') + ' ' + ($json.body.pay_currency || '').toUpperCase() + '\\n' +\n  '📅 <b>Fecha/Hora:</b> ' + new Date().toLocaleString('sv-SE', { timeZone: 'America/New_York' }) + ' (EST)\\n' +\n  '🔑 <b>ID Pago NOWPayments:</b> <code>' + $json.body.payment_id + '</code>'\n}}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        -96
+      ],
+      "id": "3c5f9e53-47e0-45db-88dc-d5866e7c2b48",
+      "name": "Send a text message",
+      "webhookId": "e72aa493-7152-43ce-a1ff-704a41ec1f59"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

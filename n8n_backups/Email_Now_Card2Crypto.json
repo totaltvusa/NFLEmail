@@ -1,0 +1,425 @@
+{
+  "id": "yTEGziry3cCxsAoZ",
+  "name": "Email Now Card2Crypto",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        -1392
+      ],
+      "id": "b6517b0f-102f-4901-a9dd-2fbf3f892292",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw",
+          "mode": "list",
+          "cachedResultName": "Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1720139671,
+          "mode": "list",
+          "cachedResultName": "PayPal",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw/edit#gid=1720139671"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        -1392
+      ],
+      "id": "725eb16c-3bfd-41d8-b1ed-77d2080944f2",
+      "name": "Get row(s) in sheet"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.recipient_email }}",
+        "subject": "={{ $json.First }}, Renew Total TV using Paypal & Cards",
+        "message": "={{ `Dear ${$json.First},<br>\n<br>\nWe want to make sure you can renew your service as smoothly as possible. Following customer feedback, we have enabled a new payment method so you can <strong>pay directly using PayPal</strong> — also allowing you to use any Credit or Debit Card linked to your account there.<br>\n<br>\n------------------<br>\n<br>\n<h3>⚡ Renew Your Subscription</h3>\nSimply click your personalized payment link to complete your renewal:<br>\n<br>\n➔ <a href=\"${$json.checkout_url}\"><strong>Click Here to Renew Your Subscription with PayPal</strong></a><br>\n<br>\n------------------<br>\n<br>\n<h3>ℹ️ Important Information About Your Payment:</h3>\n* <strong>How it works:</strong> Checkout is powered securely by our partner <strong>Card2Crypto</strong>, which seamlessly processes your payment directly into cryptocurrency for Total TV.<br>\n* <strong>First-time setup:</strong> If you haven't used crypto features on PayPal before, you may be asked to complete a brief identity or data confirmation step before finalizing the transaction. This is a standard, one-time security check on their end.<br>\n<br>\n------------------<br>\n<br>\nPlease let us know once you have completed your payment so we can keep an eye on your activation.<br>\n<br>\nThank you for choosing Total TV!<br>\n<br>\nBest regards,<br>\n<br>\n<strong>The Total TV Team</strong><br>\n<br>\n-----------<br>\nQuestions? <a href=\"https://wa.me/13059861096?text=Hello!,%20%20I%20have%20a%20question:%20\">Chat with us!</a><br>\n<br>\n<img src=\"https://raw.githubusercontent.com/totaltvusa/images/9f5aa94b431a2c954f99d0b9c4a58da580b05f86/Logo_TotalTv_1\" width=\"200\" style=\"display: block; max-width: 100%; height: auto;\" border=\"0\" />` }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        -1296
+      ],
+      "id": "54acff4d-fa91-474c-aeb8-91338f9df949",
+      "name": "Send a message"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw",
+          "mode": "list",
+          "cachedResultName": "Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1720139671,
+          "mode": "list",
+          "cachedResultName": "PayPal",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw/edit#gid=1720139671"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $('IFplay').item.json.Email }}",
+            "PLAY": "SENT"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PLAY",
+              "displayName": "PLAY",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1344,
+        -1296
+      ],
+      "id": "8ea4598b-27b9-453a-96db-caa783d11326",
+      "name": "Update row in sheet"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "72f0edb7-fad2-450b-9e05-b06044b319d2",
+              "name": "recipient_email",
+              "value": "={{ $('IFplay').item.json.Email }}",
+              "type": "string"
+            },
+            {
+              "id": "a6fe8ffa-5ed9-4a2c-afb4-06bd828143e4",
+              "name": "First",
+              "value": "={{ $('IFplay').item.json.First }}",
+              "type": "string"
+            },
+            {
+              "id": "fc0c50d7-225a-44cb-8a89-cb5e6d7da0f4",
+              "name": "checkout_url",
+              "value": "={{ $json.paylink }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        896,
+        -1392
+      ],
+      "id": "98747e60-273e-4611-a181-064b3316673f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telnyx.com/v2/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer KEY019EB46D8253794AD945DBB51130B6E6_s6AzxDHkWjqPum16MO6cJG"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "from",
+              "value": "+18884064744"
+            },
+            {
+              "name": "to",
+              "value": "={{ '+' + String($('IFplay').item.json.Phone).replace(/\\D/g, '') }}"
+            },
+            {
+              "name": "text",
+              "value": "=Dear {{ $node['IFplay'].json.First }}, info to renew TotalTV via PayPal & cards was sent to {{ $node['IFplay'].json.Email }}. Check your inbox and spam/junk folders too"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1120,
+        -1488
+      ],
+      "id": "6ed56d18-b81d-41e2-bd15-d92dcb860e52",
+      "name": "EnviarTextoLink",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "phoneNumberId": "1132324583304460",
+        "recipientPhoneNumber": "={{ String($node['IFplay'].json.Phone).replace(/\\D/g, '') }}",
+        "template": "nowcard2crypto|en",
+        "components": {
+          "component": [
+            {
+              "bodyParameters": {
+                "parameter": [
+                  {
+                    "text": "={{ $('IFplay').item.json.First }}"
+                  },
+                  {
+                    "text": "={{ $('IFplay').item.json.Amount }}"
+                  },
+                  {
+                    "text": "={{ $('Edit Fields').item.json.checkout_url }}"
+                  },
+                  {
+                    "text": "={{ $('Edit Fields').item.json.recipient_email }}"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        -1488
+      ],
+      "id": "c85623cd-b818-4a01-9869-0676b54149c0",
+      "name": "NotifyClientLink",
+      "webhookId": "b1632bf6-0f5f-422a-90e9-6a4bd383e88b",
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "p8dS1jx73xvpbrkj",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/p8dS1jx73xvpbrkj",
+          "cachedResultName": "Card2CryptoLink"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "amount": "={{ $json.Amount }}",
+            "orderid": "={{ $json.Email }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "orderid",
+              "displayName": "orderid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "mode": "each",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        -1392
+      ],
+      "id": "61f24aa5-954b-4f36-84d5-a394f80906a0",
+      "name": "Call 'Card2CryptoLink'"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "876d6d23-e7b9-497e-a50c-29bae47f47fa",
+              "leftValue": "={{ $json.PLAY }}",
+              "rightValue": "PLAY",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        -1392
+      ],
+      "id": "a81390c8-2d76-4c94-b9f5-378348b1d0f2",
+      "name": "IFplay"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "IFplay",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "EnviarTextoLink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EnviarTextoLink": {
+      "main": [
+        [
+          {
+            "node": "NotifyClientLink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'Card2CryptoLink'": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IFplay": {
+      "main": [
+        [
+          {
+            "node": "Call 'Card2CryptoLink',",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

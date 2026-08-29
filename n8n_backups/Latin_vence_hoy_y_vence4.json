@@ -1,0 +1,934 @@
+{
+  "name": "Latin vence hoy y vence4",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -16,
+        176
+      ],
+      "id": "2e10f5c7-39c1-4146-ba19-e63890d26d17",
+      "name": "Ejecutar todos los d\u00edas a las 9 AM"
+    },
+    {
+      "parameters": {
+        "phoneNumberId": "1106422772565024",
+        "recipientPhoneNumber": "=  {{ String($json.Tel\u00e9fono).replace(/\\D/g, '') }}",
+        "template": "vencehoy|es",
+        "components": {
+          "component": [
+            {
+              "bodyParameters": {
+                "parameter": [
+                  {
+                    "text": "={{ $json.Nombre }}"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        -208
+      ],
+      "id": "85c5d692-a86c-4272-a0e3-de74d2731b62",
+      "name": "VenceHoy",
+      "webhookId": "b1632bf6-0f5f-422a-90e9-6a4bd383e88b",
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "5mdJEz0fPigGF7Wc",
+          "name": "WhatsApp 3054229099"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "phoneNumberId": "1106422772565024",
+        "recipientPhoneNumber": "=  {{ String($json.Tel\u00e9fono).replace(/\\D/g, '') }}",
+        "template": "vencepronto|es",
+        "components": {
+          "component": [
+            {
+              "bodyParameters": {
+                "parameter": [
+                  {
+                    "text": "={{ $json.Nombre }}"
+                  },
+                  {
+                    "text": "={{ $json.Vence.toDateTime().format(\"d 'de' MMMM\", { locale: 'es' }) }}"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        176
+      ],
+      "id": "86c469d0-2b36-4f63-babe-d64faacde276",
+      "name": "Vence4dias",
+      "webhookId": "b1632bf6-0f5f-422a-90e9-6a4bd383e88b",
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "5mdJEz0fPigGF7Wc",
+          "name": "WhatsApp 3054229099"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Vence ? $json.Vence.toDateTime().format('yyyy-MM-dd') : '' }}",
+                    "rightValue": "={{ $today.format('yyyy-MM-dd') }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "3b934763-dece-48fc-ba8f-9a5ab5665bad"
+                  },
+                  {
+                    "leftValue": "={{ $json.PLAY || '' }}",
+                    "rightValue": "SENT",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    },
+                    "id": "3c197303-727f-4859-a0c2-37f64a84443b"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Vence hoy"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Vence ? $json.Vence.toDateTime().format('yyyy-MM-dd') : '' }}",
+                    "rightValue": "={{ $today.plus({ days: 4 }).format('yyyy-MM-dd') }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "4dbd940c-742c-4b43-8f46-19425f7da3fd"
+                  },
+                  {
+                    "leftValue": "={{ $json.PLAY || '' }}",
+                    "rightValue": "SENT",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    },
+                    "id": "2c79940b-067c-4abf-8acc-780c91a6e5ae"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Vence en 4 d\u00edas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Vence ? $json.Vence.toDateTime().format('yyyy-MM-dd') : '' }}",
+                    "rightValue": "={{ $today.format('yyyy-MM-dd') }}",
+                    "operator": {
+                      "type": "dateTime",
+                      "operation": "before"
+                    },
+                    "id": "48c95798-d4aa-473b-bf5e-e6be935bf0f2"
+                  },
+                  {
+                    "leftValue": "={{ $json.PLAY || '' }}",
+                    "rightValue": "SENT",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e1594d00-1fac-419c-9b67-1430819f96a5"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Limpiar registros pasados"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        432,
+        160
+      ],
+      "id": "5346225e-66fa-4939-b7d9-827f407e2c08",
+      "name": "Evaluar Vencimiento y Estado PLAY"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0",
+          "mode": "list",
+          "cachedResultName": "Clientes TotalTV",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1823373862,
+          "mode": "list",
+          "cachedResultName": "DnSpace",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1823373862"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": 0,
+            "PLAY": "SENT4",
+            "Usuario": "={{ $json.Usuario }}"
+          },
+          "matchingColumns": [
+            "Usuario"
+          ],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Apellido",
+              "displayName": "Apellido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tel\u00e9fono",
+              "displayName": "Tel\u00e9fono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Usuario",
+              "displayName": "Usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Clave",
+              "displayName": "Clave",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Vence",
+              "displayName": "Vence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "1ra compra",
+              "displayName": "1ra compra",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "DisApp",
+              "displayName": "DisApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Alternativa",
+              "displayName": "Alternativa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Observaci\u00f3n",
+              "displayName": "Observaci\u00f3n",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Vence 1ro",
+              "displayName": "Vence 1ro",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "PLAY",
+              "displayName": "PLAY",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        656,
+        368
+      ],
+      "id": "cacf036b-4cf6-40ad-b3aa-e7d60b9bba5b",
+      "name": "marcaSENT4",
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Pw5wN2L5UopOruaj",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0",
+          "mode": "list",
+          "cachedResultName": "Clientes TotalTV",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1823373862,
+          "mode": "list",
+          "cachedResultName": "DnSpace",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1823373862"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": 0,
+            "PLAY": "SENT",
+            "Usuario": "={{ $json.Usuario }}"
+          },
+          "matchingColumns": [
+            "Usuario"
+          ],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Apellido",
+              "displayName": "Apellido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tel\u00e9fono",
+              "displayName": "Tel\u00e9fono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Usuario",
+              "displayName": "Usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Clave",
+              "displayName": "Clave",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Vence",
+              "displayName": "Vence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "1ra compra",
+              "displayName": "1ra compra",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "DisApp",
+              "displayName": "DisApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Alternativa",
+              "displayName": "Alternativa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Observaci\u00f3n",
+              "displayName": "Observaci\u00f3n",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Vence 1ro",
+              "displayName": "Vence 1ro",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "PLAY",
+              "displayName": "PLAY",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        656,
+        -16
+      ],
+      "id": "6ca1e2df-776a-46de-8095-3d8f388cdfdc",
+      "name": "marcaSENThoy",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Pw5wN2L5UopOruaj",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0",
+          "mode": "list",
+          "cachedResultName": "Clientes TotalTV",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1823373862,
+          "mode": "list",
+          "cachedResultName": "DnSpace",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1823373862"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        208,
+        176
+      ],
+      "id": "572dda42-5bd2-44ba-af41-a108b6838745",
+      "name": "BuscarVencimientos",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Pw5wN2L5UopOruaj",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0",
+          "mode": "list",
+          "cachedResultName": "Clientes TotalTV",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1823373862,
+          "mode": "list",
+          "cachedResultName": "DnSpace",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0/edit#gid=1823373862"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Usuario": "={{ $json.Usuario }}",
+            "PLAY": " "
+          },
+          "matchingColumns": [
+            "Usuario"
+          ],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Apellido",
+              "displayName": "Apellido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Tel\u00e9fono",
+              "displayName": "Tel\u00e9fono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Usuario",
+              "displayName": "Usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Clave",
+              "displayName": "Clave",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Vence",
+              "displayName": "Vence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "1ra compra",
+              "displayName": "1ra compra",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "DisApp",
+              "displayName": "DisApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Alternativa",
+              "displayName": "Alternativa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Observaci\u00f3n",
+              "displayName": "Observaci\u00f3n",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Vence 1ro",
+              "displayName": "Vence 1ro",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "PLAY",
+              "displayName": "PLAY",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        656,
+        560
+      ],
+      "id": "02130a31-0f93-415a-a272-0cb1cdcbf822",
+      "name": "LimpiarSENTVencidos",
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Pw5wN2L5UopOruaj",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "id": "af357424-2927-4a51-8067-e1617dc67819",
+      "name": "PonerTextoRojoVence",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        880,
+        560
+      ],
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "jsonBody": "={{ JSON.stringify({\n  requests: [\n    {\n      repeatCell: {\n        range: {\n          sheetId: 1823373862,\n          startRowIndex: (() => { const r = $json.row_number || $('Evaluar Vencimiento y Estado PLAY').item.json.row_number || 2; return r - 1; })(),\n          endRowIndex: (() => { const r = $json.row_number || $('Evaluar Vencimiento y Estado PLAY').item.json.row_number || 2; return r; })(),\n          startColumnIndex: 5,\n          endColumnIndex: 6\n        },\n        cell: {\n          userEnteredFormat: {\n            textFormat: {\n              foregroundColor: {\n                red: 0.85,\n                green: 0.1,\n                blue: 0.1\n              }\n            }\n          }\n        },\n        fields: \"userEnteredFormat.textFormat.foregroundColor\"\n      }\n    }\n  ]\n}) }}",
+        "method": "POST",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0:batchUpdate"
+      },
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Pw5wN2L5UopOruaj",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Ejecutar todos los d\u00edas a las 9 AM": {
+      "main": [
+        [
+          {
+            "node": "BuscarVencimientos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluar Vencimiento y Estado PLAY": {
+      "main": [
+        [
+          {
+            "node": "VenceHoy",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "marcaSENThoy",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Vence4dias",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "marcaSENT4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LimpiarSENTVencidos",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "PonerTextoRojoVence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vence4dias": {
+      "main": [
+        []
+      ]
+    },
+    "VenceHoy": {
+      "main": [
+        []
+      ]
+    },
+    "BuscarVencimientos": {
+      "main": [
+        [
+          {
+            "node": "Evaluar Vencimiento y Estado PLAY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  }
+}

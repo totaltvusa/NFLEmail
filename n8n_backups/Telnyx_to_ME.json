@@ -1,0 +1,253 @@
+{
+  "id": "OQzmQUISGM6ShdKT",
+  "name": "Telnyx to ME",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "TelnyxInbound",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        80,
+        -128
+      ],
+      "id": "87ba9701-3fa9-4226-bbc7-33d2e195c058",
+      "name": "Webhook",
+      "webhookId": "8311a13d-bec1-4ac0-bf37-c67c2f75ddfb"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "TTvAlertsMovistar",
+        "remoteJid": "584146130135",
+        "messageText": "={{ \n  (() => {\n    const payload = $json.body?.data?.payload || {};\n    const direction = payload.direction; // \"outbound\" o \"inbound\"\n    const isOutbound = direction === 'outbound';\n    \n    let text = \"\";\n    \n    if (isOutbound) {\n      // 1. EXTRAER ESTADO DE SALIDA\n      const toData = payload.to?.[0] || {};\n      const status = toData.status || \"unknown\"; // \"delivery_failed\", \"delivered\", \"queued\", etc.\n      let statusEmoji = \"⏳\";\n      if (status === \"delivered\") statusEmoji = \"✅\";\n      if (status === \"delivery_failed\") statusEmoji = \"❌\";\n      \n      text += `📤 *SMS Saliente (Reporte)*\\n`;\n      text += `📱 *Para:* ${toData.phone_number || 'N/A'}\\n`;\n      text += `📥 *Desde:* ${payload.from?.phone_number || 'N/A'}\\n`;\n      text += `${statusEmoji} *Estado:* ${status.toUpperCase()}\\n`;\n      \n      // Si hay errores, los detalla\n      if (payload.errors && payload.errors.length > 0) {\n        text += `⚠️ *Error:* ${payload.errors[0].title} (Código: ${payload.errors[0].code})\\n`;\n        text += `🔍 *Detalle:* ${payload.errors[0].detail}\\n`;\n      }\n    } else {\n      // 2. DETECTAR SMS ENTRANTE (INBOUND)\n      text += `📩 *SMS Recibido (Entrante)*\\n`;\n      text += `📱 *De:* ${payload.from?.phone_number || 'N/A'}\\n`;\n      text += `📥 *Recibido en:* ${payload.to?.[0]?.phone_number || 'N/A'}\\n`;\n    }\n    \n    // Agregar el contenido del mensaje al final\n    text += `💬 *Mensaje:* ${payload.text || ''}`;\n    \n    return text;\n  })()\n}}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        528,
+        -320
+      ],
+      "id": "b7c4ac99-feef-4079-a213-a17502ca0d07",
+      "name": "Enviar texto"
+    },
+    {
+      "parameters": {
+        "chatId": "40371837",
+        "text": "={{ \n  (() => {\n    const payload = $json.body.data.payload;\n    const direction = payload.direction; // \"outbound\" o \"inbound\"\n    const isOutbound = direction === 'outbound';\n    \n    let text = \"\";\n    \n    if (isOutbound) {\n      // 1. EXTRAER ESTADO DE SALIDA\n      const status = payload.to[0].status; // \"delivery_failed\", \"delivered\", \"queued\", etc.\n      let statusEmoji = \"⏳\";\n      if (status === \"delivered\") statusEmoji = \"✅\";\n      if (status === \"delivery_failed\") statusEmoji = \"❌\";\n      \n      text += `📤 <b>SMS Saliente (Reporte)</b>\\n`;\n      text += `📱 <b>Para:</b> ${payload.to[0].phone_number}\\n`;\n      text += `📥 <b>Desde:</b> ${payload.from.phone_number}\\n`;\n      text += `${statusEmoji} <b>Estado:</b> ${status.toUpperCase()}\\n`;\n      \n      // Si hay errores, los detalla\n      if (payload.errors && payload.errors.length > 0) {\n        text += `⚠️ <b>Error:</b> ${payload.errors[0].title} (Código: ${payload.errors[0].code})\\n`;\n        text += `🔍 <b>Detalle:</b> ${payload.errors[0].detail}\\n`;\n      }\n    } else {\n      // 2. DETECTAR SMS ENTRANTE (INBOUND)\n      text += `📩 <b>SMS Recibido (Entrante)</b>\\n`;\n      text += `📱 <b>De:</b> ${payload.from.phone_number}\\n`;\n      text += `📥 <b>Recibido en:</b> ${payload.to[0].phone_number}\\n`;\n    }\n    \n    // Agregar el contenido del mensaje al final\n    text += `💬 <b>Mensaje:</b> ${payload.text}`;\n    \n    return text;\n  })()\n}}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        -128
+      ],
+      "id": "7d7c8485-1916-48e3-9a9b-8cdc25d825c0",
+      "name": "Notificarme Link Telegram",
+      "webhookId": "2a123280-e66d-466c-af13-e5b66d01084f",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ccd31ef8-f321-4e0f-8eff-4de460448117",
+              "leftValue": "={{ $json.body.data.event_type }}",
+              "rightValue": "message.received",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "59597ce5-3c07-44b7-9890-23fd2ac23ac8",
+              "leftValue": "={{ $json.body.data.payload.status }}",
+              "rightValue": "fail",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "cdd97b21-4482-4a7b-aaf1-f23dbcf3aa3e",
+              "leftValue": "={{ $json.body.data.payload.errors ? $json.body.data.payload.errors.length : 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        304,
+        -128
+      ],
+      "id": "263e14e2-b4ad-4e32-80cc-5f529ffcbcb3",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw",
+          "mode": "list",
+          "cachedResultName": "Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 170603042,
+          "mode": "list",
+          "cachedResultName": "TELNYX",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FiAVv86vtv6UCcYaJAz8HswF6U6zwaqGcXGeZoB19mw/edit#gid=170603042"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ new Date($json.body.data.payload.occurred_at || $json.body.data.payload.received_at || Date.now()).toLocaleString('sv-SE') }}",
+            "remitente": "={{ $json.body.data.payload.from.phone_number }}",
+            "destinatario": "={{ $json.body.data.payload.to[0].phone_number }}",
+            "estado": "={{ $json.body.data.payload.status || $json.body.data.event_type }}",
+            "mensaje": "={{ $json.body.data.payload.text || 'N/A' }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "remitente",
+              "displayName": "remitente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "destinatario",
+              "displayName": "destinatario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mensaje",
+              "displayName": "mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        528,
+        64
+      ],
+      "id": "cea16a97-f3b2-4a15-aa5b-8b0caf7da8af",
+      "name": "Append row in sheet"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar texto": {
+      "main": [
+        []
+      ]
+    },
+    "Notificarme Link Telegram": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Notificarme Link Telegram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enviar texto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

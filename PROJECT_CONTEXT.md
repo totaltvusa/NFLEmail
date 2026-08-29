@@ -10,7 +10,7 @@
 
 This repository manages two key operational systems for **Total TV USA**:
 1. **Email Marketing Campaigns**: HTML email templates for NFL season campaigns and promotional blasts (`nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
-2. **Automated Expiration & Renewal Pipelines (n8n)**: Workflows running on self-hosted n8n (`https://n8n.ac4.club/`) that monitor subscription expiration dates in Google Sheets, route customers based on payment methods, dispatch notifications via Gmail, Telnyx SMS, and WhatsApp Cloud API, generate NowPayments/Payram discount links, and mark statuses back in the spreadsheet.
+2. **Automated Expiration & Renewal Pipelines (n8n)**: Workflows running on self-hosted n8n (`https://n8n.ac4.club/`) that monitor subscription expiration dates in Google Sheets, route customers based on payment methods, dispatch notifications via Gmail, Telnyx SMS, and WhatsApp Cloud API, generate NowPayments crypto discount links, and mark statuses back in the spreadsheet.
 
 ---
 
@@ -23,9 +23,9 @@ This repository manages two key operational systems for **Total TV USA**:
 
 ### Sheet Tabs & Column Schemas
 
-| Tab Name | Internal Sheet ID (`gid`) | Primary Audience | Key Column Details |
+| Tab Name | Internal Sheet ID (`gid` / `sheetId`) | Primary Audience | Key Column Details |
 | :--- | :--- | :--- | :--- |
-| **`Mega`** | **`1037714867`** | Total TV USA (Mega OTT Panel) | See Column Schema below |
+| **`Mega`** | **`51202947`** | Total TV USA (Mega OTT Panel) | See Column Schema below |
 | **`DnSpace`** | **`1823373862`** | Total TV Latina / TVTotal24 | Column F is `Vence` |
 
 ### `Mega` Tab Column Mapping (0-Indexed)
@@ -49,9 +49,9 @@ This repository manages two key operational systems for **Total TV USA**:
 
 ### 3.1. `Mega expires SOON (Vence 4 días)`
 * **Workflow ID**: `F7M6sLe1lo4zUObT`
-* **Target Sheet**: `Clientes TotalTV` $\rightarrow$ `Mega` (`1037714867`)
+* **Target Sheet**: `Clientes TotalTV` $\rightarrow$ `Mega` (`51202947`)
 * **Trigger**: Scheduled daily at 9:00 AM (`America/Caracas` timezone)
-* **Date Filter**: Matches customers where `Vence` is **in exactly 4 days** (`$today.plus({ days: 4 })`) and `PLAY != 'SENT4'`.
+* **Date Filter**: Matches customers where `Vence` is **in exactly 4 days** (`America/Caracas`) and `PLAY != 'SENT4'`.
 * **Path A (Zelle)**:
   * Condition: `Paga por` equals `zelle`.
   * Channels:
@@ -59,32 +59,34 @@ This repository manages two key operational systems for **Total TV USA**:
   * Update: Updates row matching by `Usuario`, setting `PLAY = "SENT4"`.
 * **Path B (Non-Zelle / Payment Link)**:
   * Generates NowPayments invoice via HTTP Request with 20% discount on `Ultimo Monto`.
-  * **Gmail** (`Send a message`): Sends full email with Zelle, Cash App, and NowPayments crypto payment link ($20% off).
+  * Preserves customer metadata and combines invoice URL safely via JavaScript Code node.
+  * **Gmail** (`Send a message Link`): Sends full email with Zelle, Cash App, and NowPayments crypto payment link ($20% off).
   * Update: Updates row matching by `Usuario`, setting `PLAY = "SENT4"`.
 
 ### 3.2. `Mega expires TODAY (Vence HOY)`
 * **Workflow ID**: `943Yu3CZMD4dzRCI`
-* **Target Sheet**: `Clientes TotalTV` $\rightarrow$ `Mega` (`1037714867`)
+* **Target Sheet**: `Clientes TotalTV` $\rightarrow$ `Mega` (`51202947`)
 * **Trigger**: Scheduled daily at 9:00 AM (`America/Caracas` timezone)
-* **Selector Node**: `Evaluar Vencimiento y Estado PLAY` (Switch Node):
+* **Selector Node**: `Evaluar Categoría` (Switch Node):
   * **Output 0 ("Vence hoy")**:
     * Matches: `Vence` == TODAY (`America/Caracas`) and `PLAY != 'SENT'`.
     * **Zelle Path**:
       * **Gmail** (`Send a message Zelle`): Urgent email "*...subscription EXPIRES TODAY!*".
       * **Telnyx SMS** (`EnviarTextoZelle`): Direct text message to customer phone.
       * **WhatsApp Cloud API** (`NotifyClientZelle`): Template `expirestodayzelle|en` with Zelle QR image.
-      * **Google Sheets Update**: Marks `PLAY = "SENT"` matching by `Usuario`.
+      * **Google Sheets Update** (`Update row in sheet Zelle`): Marks `PLAY = "SENT"` matching by `Usuario`.
     * **Link Path**:
       * Generates 20% discounted NowPayments link.
-      * **Gmail** (`Send a message`): Urgent email with NowPayments link, Cash App, and Zelle instructions.
+      * Combines invoice URL with customer data via Code node.
+      * **Gmail** (`Send a message Link`): Urgent email with NowPayments link, Cash App, and Zelle instructions.
       * **Telnyx SMS** (`EnviarTextoLink`): Direct text message with instructions to check email.
       * **WhatsApp Cloud API** (`NotifyClientLink`): Template `expirestodaylink|en` with 5 parameters (Name, Email, Full Amount, Discounted Crypto Amount, Checkout URL).
-      * **Google Sheets Update**: Marks `PLAY = "SENT"` matching by `Usuario`.
+      * **Google Sheets Update** (`Update row in sheet Link`): Marks `PLAY = "SENT"` matching by `Usuario`.
   * **Output 1 ("Limpiar registros pasados")**:
     * Matches: `Vence` < TODAY and `PLAY != ""` (contains past marks).
     * Runs parallel operations directly from the switch output:
-      1. **`LimpiarSENTVencidos`**: Google Sheets node clearing `PLAY` column (`" "`) matching by `Usuario`.
-      2. **`PonerTextoRojoVence`**: Google Sheets API `batchUpdate` HTTP Request setting cell text color to vibrant red (`#d91919`) on Column F (`Vence`) for that row.
+      1. **`LimpiarSENTVencidos`**: Google Sheets node clearing `PLAY` column (`" "`) matching by `Usuario` on sheet ID `51202947`.
+      2. **`PonerTextoRojoVence`**: Google Sheets API `batchUpdate` HTTP Request setting cell text color to vibrant red (`#d91919`) on Column F (`Vence`) for that row (`sheetId: 51202947`).
 
 ### 3.3. `Latin vence hoy y vence4`
 * **Workflow ID**: `TfILC2hXao6SLQfE`
@@ -113,9 +115,20 @@ This repository manages two key operational systems for **Total TV USA**:
 
 ## 5. Technical Implementation Details & Guardrails
 
-### Universal Amount Extractor (`getAmount`)
-Used across expressions to guarantee amount parsing regardless of sheet column casing or symbol formatting (`$`, commas):
+### Safe Field Lookup & Universal Amount Extractor
+Used across JavaScript nodes to guarantee robust extraction regardless of casing or accented characters:
 ```javascript
+const getField = (obj, regex) => {
+  if (!obj) return '';
+  for (const k of Object.keys(obj)) {
+    if (regex.test(k)) {
+      const v = obj[k];
+      if (v !== undefined && v !== null) return v;
+    }
+  }
+  return '';
+};
+
 const getAmount = (obj) => {
   if (!obj) return 0;
   for (const k of Object.keys(obj)) {
@@ -131,32 +144,39 @@ const getAmount = (obj) => {
 };
 ```
 
-### Date Normalization
-Normalizes both `YYYY-MM-DD` and `DD/MM/YYYY` strings to ISO format for deterministic string comparison against `$now`:
+### Date Normalization (America/Caracas)
+Normalizes dates (`YYYY-MM-DD` and `DD/MM/YYYY`) to ISO format for deterministic string comparison against `$now`:
 ```javascript
-(() => {
-  const raw = ($json.Vence || $json.vence || $json.VENCE || '').toString().trim().split(' ')[0].split('T')[0];
+const now = new Date();
+const caracasOffset = -4 * 60;
+const localNow = new Date(now.getTime() + (now.getTimezoneOffset() + caracasOffset) * 60000);
+const pad = (n) => String(n).padStart(2, '0');
+const todayStr = `${localNow.getFullYear()}-${pad(localNow.getMonth() + 1)}-${pad(localNow.getDate())}`;
+
+const normalizeDate = (val) => {
+  if (!val) return '';
+  const raw = String(val).trim().split(' ')[0].split('T')[0];
   const p = raw.split(/[\/\-]/);
   if (p.length === 3) {
     return p[0].length === 4
-      ? `${p[0]}-${p[1].padStart(2, '0')}-${p[2].padStart(2, '0')}`
-      : `${p[2].length === 2 ? '20' + p[2] : p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}`;
+      ? `${p[0]}-${pad(p[1])}-${pad(p[2])}`
+      : `${p[2].length === 2 ? '20' + p[2] : p[2]}-${pad(p[1])}-${pad(p[0])}`;
   }
   return raw;
-})()
+};
 ```
 
 ### Google Sheets Cell Formatting (Red Text)
-Calls `POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchUpdate` using predefined credential `googleSheetsOAuth2Api`:
+Calls `POST https://sheets.googleapis.com/v4/spreadsheets/1SNRbfgomUgtac58UmIMlH8UzizBXrTDVogxJEt-z9A0:batchUpdate` using predefined credential `googleSheetsOAuth2Api` (`Pw5wN2L5UopOruaj`):
 ```json
 {
   "requests": [
     {
       "repeatCell": {
         "range": {
-          "sheetId": 1037714867,
-          "startRowIndex": rowNumber - 1,
-          "endRowIndex": rowNumber,
+          "sheetId": 51202947,
+          "startRowIndex": row_number - 1,
+          "endRowIndex": row_number,
           "startColumnIndex": 5,
           "endColumnIndex": 6
         },
@@ -182,10 +202,21 @@ Calls `POST https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}:batchU
 
 ## 6. Repository Backups Structure
 
-All active and reference workflows are backed up as JSON in the `n8n_backups/` directory:
+All active workflows are backed up as JSON in the `n8n_backups/` directory:
 * `n8n_backups/Mega_expires_SOON.json`: Live export of the 4-day notification workflow for `Mega`.
 * `n8n_backups/Mega_expires_TODAY.json`: Live export of the same-day multi-channel workflow with cleaning and red text formatting.
 * `n8n_backups/Latin_vence_hoy_y_vence4.json`: Updated workflow for `DnSpace` with red formatting.
 * `n8n_backups/Email_expires_SOON.json`: Legacy baseline workflow.
 * `n8n_backups/Email_expires_TODAY.json`: Legacy baseline workflow.
 * Additional utility backups: `Card2Crypto_to_ME.json`, `Chatwoot_IA_Agent.json`, `Email_Now_Card2Crypto.json`, `NowPayments_to_me.json`, `Telnyx_to_ME.json`.
+
+---
+
+## 7. Change History & Activity Log
+
+### 2026-08-29
+- **Initial Setup**: Configured MinGit, GCM, repository remote tracking, and autonomous execution policies in `AGENTS.md` and `.agents/rules/autonomous.md`.
+- **Root Cause Fixes**: Fixed broken paired-item references across `Mega expires SOON` and `Mega expires TODAY`, empty `order_id` in NowPayments, and lack of error branches.
+- **Direct n8n Integration**: Integrated via n8n Public REST API (`https://n8n.ac4.club/api/v1/`) using API Token authentication to update and activate workflows directly on the production instance.
+- **Syntax & Encoding Fix**: Sanitized non-ASCII identifiers in Node.js Code nodes (`TelÃ©fono` $\rightarrow$ `Telefono`) preventing V8 syntax errors.
+- **Google Sheets ID Correction**: Discovered real numeric sheet ID for `Mega` tab (**`51202947`** vs legacy `1037714867`), resolving `Sheet with ID not found` and `No grid with id` errors in `LimpiarSENTVencidos`, `PonerTextoRojoVence`, and `Update row in sheet` nodes.

@@ -224,4 +224,6 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
 ### 2026-08-30
 - **Upstream Node Field Reference in Sheet Updates**: Fixed issue where `Update row in sheet` nodes in `Mega expires SOON` and `Mega expires TODAY` were reading `Usuario` from `$json.Usuario` instead of referencing the upstream customer node (`$('If es link o zelle?')` / `$('Unir Datos con Link de Pago')`). Because Gmail/WhatsApp API output replaced `$json` with API response payloads, `$json.Usuario` was undefined, preventing Google Sheets from matching the client and writing `SENT4` / `SENT`.
 - **Multi-channel Downstream Variable Resolution**: Updated Telnyx SMS and WhatsApp nodes in `Mega expires TODAY` to reliably read customer variables (`Nombre`, `Email`, `Telefono`, `Ultimo_Monto`, `Crypto_Monto`, `checkout_url`) from upstream source nodes.
+- **Direct Production Deployment & Verification**: Deployed the patched workflow definitions directly to the live n8n instance (`https://n8n.ac4.club/`) via Public REST API for both `F7M6sLe1lo4zUObT` (`Mega expires SOON`) and `943Yu3CZMD4dzRCI` (`Mega expires TODAY`). Verified that both workflows are active (`active: true`), configured with verified sheet ID `51202947`, and correctly reading upstream variables.
+
 

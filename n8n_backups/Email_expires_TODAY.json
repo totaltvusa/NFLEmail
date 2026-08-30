@@ -321,7 +321,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer KEY019EB46D8253794AD945DBB51130B6E6_s6AzxDHkWjqPum16MO6cJG"
+              "value": "Bearer TELNYX_API_KEY_PROTECTED"
             }
           ]
         },
@@ -363,7 +363,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer KEY019EB46D8253794AD945DBB51130B6E6_s6AzxDHkWjqPum16MO6cJG"
+              "value": "Bearer TELNYX_API_KEY_PROTECTED"
             }
           ]
         },

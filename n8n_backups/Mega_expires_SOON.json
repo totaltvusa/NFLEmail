@@ -146,7 +146,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Usuario": "={{ $json.Usuario }}",
+            "Usuario": "={{ $('If es link o zelle?').item.json.Usuario || $('Filtrar y Normalizar Vence 4 Días').item.json.Usuario || $json.Usuario }}",
             "PLAY": "SENT4"
           },
           "matchingColumns": [
@@ -262,7 +262,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Usuario": "={{ $json.Usuario }}",
+            "Usuario": "={{ $('Unir Datos con Link de Pago').item.json.Usuario || $('If es link o zelle?').item.json.Usuario || $('Filtrar y Normalizar Vence 4 Días').item.json.Usuario || $json.Usuario }}",
             "PLAY": "SENT4"
           },
           "matchingColumns": [

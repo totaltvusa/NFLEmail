@@ -285,11 +285,11 @@
             },
             {
               "name": "to",
-              "value": "={{ '+' + ($json.Telefono || $json.Teléfono) }}"
+              "value": "={{ '+' + ($('If es link o zelle?').item.json.Telefono || $('If es link o zelle?').item.json.Teléfono || $json.Telefono || $json.Teléfono) }}"
             },
             {
               "name": "text",
-              "value": "={{ `Dear ${$json.Nombre},\nYour TotalTv account EXPIRES TODAY!\nRenew using instructions sent to ${$json.Email} \n(check spam/junk too)` }}"
+              "value": "={{ `Dear ${$('If es link o zelle?').item.json.Nombre || $json.Nombre},\nYour TotalTv account EXPIRES TODAY!\nRenew using instructions sent to ${$('If es link o zelle?').item.json.Email || $json.Email} \n(check spam/junk too)` }}"
             }
           ]
         },
@@ -308,7 +308,7 @@
     {
       "parameters": {
         "phoneNumberId": "1132324583304460",
-        "recipientPhoneNumber": "={{ $json.Telefono || $json.Teléfono }}",
+        "recipientPhoneNumber": "={{ $('If es link o zelle?').item.json.Telefono || $('If es link o zelle?').item.json.Teléfono || $json.Telefono || $json.Teléfono }}",
         "template": "expirestodayzelle|en",
         "components": {
           "component": [
@@ -316,10 +316,10 @@
               "bodyParameters": {
                 "parameter": [
                   {
-                    "text": "={{ $json.Nombre }}"
+                    "text": "={{ $('If es link o zelle?').item.json.Nombre || $json.Nombre }}"
                   },
                   {
-                    "text": "={{ $json.Ultimo_Monto }}"
+                    "text": "={{ $('If es link o zelle?').item.json.Ultimo_Monto || $json.Ultimo_Monto }}"
                   }
                 ]
               }
@@ -375,7 +375,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Usuario": "={{ $json.Usuario }}",
+            "Usuario": "={{ $('If es link o zelle?').item.json.Usuario || $('Evaluar Vencimiento y Categorizar').item.json.Usuario || $json.Usuario }}",
             "PLAY": "SENT"
           },
           "matchingColumns": [
@@ -494,11 +494,11 @@
             },
             {
               "name": "to",
-              "value": "={{ '+' + ($json.Telefono || $json.Teléfono) }}"
+              "value": "={{ '+' + ($('Unir Datos con Link de Pago').item.json.Telefono || $('Unir Datos con Link de Pago').item.json.Teléfono || $json.Telefono || $json.Teléfono) }}"
             },
             {
               "name": "text",
-              "value": "={{ `Dear ${$json.Nombre},\nYour TotalTv account EXPIRES TODAY!\nRenew using instructions sent to ${$json.Email} \n(check spam/junk too)` }}"
+              "value": "={{ `Dear ${$('Unir Datos con Link de Pago').item.json.Nombre || $json.Nombre},\nYour TotalTv account EXPIRES TODAY!\nRenew using instructions sent to ${$('Unir Datos con Link de Pago').item.json.Email || $json.Email} \n(check spam/junk too)` }}"
             }
           ]
         },
@@ -517,7 +517,7 @@
     {
       "parameters": {
         "phoneNumberId": "1132324583304460",
-        "recipientPhoneNumber": "={{ $json.Telefono || $json.Teléfono }}",
+        "recipientPhoneNumber": "={{ $('Unir Datos con Link de Pago').item.json.Telefono || $('Unir Datos con Link de Pago').item.json.Teléfono || $json.Telefono || $json.Teléfono }}",
         "template": "expirestodaylink|en",
         "components": {
           "component": [
@@ -525,19 +525,19 @@
               "bodyParameters": {
                 "parameter": [
                   {
-                    "text": "={{ $json.Nombre }}"
+                    "text": "={{ $('Unir Datos con Link de Pago').item.json.Nombre || $json.Nombre }}"
                   },
                   {
-                    "text": "={{ $json.Email }}"
+                    "text": "={{ $('Unir Datos con Link de Pago').item.json.Email || $json.Email }}"
                   },
                   {
-                    "text": "={{ $json.Ultimo_Monto }}"
+                    "text": "={{ $('Unir Datos con Link de Pago').item.json.Ultimo_Monto || $json.Ultimo_Monto }}"
                   },
                   {
-                    "text": "={{ $json.Crypto_Monto }}"
+                    "text": "={{ $('Unir Datos con Link de Pago').item.json.Crypto_Monto || $json.Crypto_Monto }}"
                   },
                   {
-                    "text": "={{ $json.checkout_url }}"
+                    "text": "={{ $('Unir Datos con Link de Pago').item.json.checkout_url || $json.checkout_url }}"
                   }
                 ]
               }
@@ -582,7 +582,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Usuario": "={{ $json.Usuario }}",
+            "Usuario": "={{ $('Unir Datos con Link de Pago').item.json.Usuario || $('If es link o zelle?').item.json.Usuario || $('Evaluar Vencimiento y Categorizar').item.json.Usuario || $json.Usuario }}",
             "PLAY": "SENT"
           },
           "matchingColumns": [

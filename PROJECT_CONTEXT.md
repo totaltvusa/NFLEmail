@@ -236,6 +236,15 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
 ### 2026-09-14 - 2026-09-16
 - **New Workflow `Sync Mega to MegaData` (`Lcyro95g4yg39bdD`)**: Created and activated pipeline to sync and structure all Mega subscription records into the `MegaData` tab in `Clientes TotalTV`.
 - **Phone Pre-validation (`If Celular`)**: Added conditional validation nodes `If Celular Zelle` and `If Celular Link` in `Mega expires TODAY` (`943Yu3CZMD4dzRCI`) to evaluate `can_send_sms` before calling Telnyx SMS, bypassing SMS gracefully when no phone is present and writing `SENT` directly to Google Sheets.
+- **Brand Identity & Permanent Logo Update**: Adopted the new 3D magenta/pink TotalTV logo (`totaltv_logo.png`) as the official brand asset for all future marketing and workflow assets.
+- **MLB Playoffs 2026 & "The October Classic" Campaign**:
+  - Created responsive HTML email template `mlb_playoffs_email.html` optimized for high conversion ahead of the MLB Postseason beginning September 29.
+  - Generated and integrated cinematic hero banner `mlb_friends_banner.jpg` featuring friends watching live MLB baseball on a big-screen TV with the TotalTV corner logo bug.
+  - Configured total black cards with `#FE2659` pink highlights and direct click-through routing to `http://totaltvusa.com/`.
+  - Added 24-Hour Free Demo section with direct multi-channel booking links (WhatsApp, Facebook Messenger `https://m.me/TotalTv2025`, and Web).
+  - Prominently integrated a 20% discount offer when paying with Cryptocurrencies.
+  - Highlighted extensive catalog scaling (50,000+ on-demand movies & series + 10,000 live channels) and entry pricing starting from $9.
+  - Sanitized all support messaging removing inaccurate 24/7 claims.
 
 
 

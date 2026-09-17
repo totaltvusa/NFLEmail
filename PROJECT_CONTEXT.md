@@ -96,6 +96,12 @@ This repository manages two key operational systems for **Total TV USA**:
   * Evaluates: Expirations for today (`VenceHoy`, `marcaSENThoy`), 4 days (`Vence4dias`, `marcaSENT4`), and past cleaning (`LimpiarSENTVencidos`).
   * **`PonerTextoRojoVence`**: Connected in parallel with `LimpiarSENTVencidos` to apply red text color (`#d91919`) to the `Vence` date in `DnSpace` for all past rows cleaned.
 
+### 3.4. `Sync Mega to MegaData`
+* **Workflow ID**: `Lcyro95g4yg39bdD`
+* **Target Sheet**: `Clientes TotalTV` $\rightarrow$ `MegaData` tab
+* **Trigger**: Webhook and Manual trigger
+* **Purpose**: Synchronizes, transforms, and structures all Mega subscriptions from the `Mega` tab and writes them to the consolidated `MegaData` tab in `Clientes TotalTV`.
+
 ---
 
 ## 4. Credentials & Services Index
@@ -204,7 +210,8 @@ Calls `POST https://sheets.googleapis.com/v4/spreadsheets/1SNRbfgomUgtac58UmIMlH
 
 All active workflows are backed up as JSON in the `n8n_backups/` directory:
 * `n8n_backups/Mega_expires_SOON.json`: Live export of the 4-day notification workflow for `Mega`.
-* `n8n_backups/Mega_expires_TODAY.json`: Live export of the same-day multi-channel workflow with cleaning and red text formatting.
+* `n8n_backups/Mega_expires_TODAY.json`: Live export of the same-day multi-channel workflow with cleaning, conditional SMS routing, and red text formatting.
+* `n8n_backups/Sync_Mega_to_MegaData.json`: Data structuring and sync workflow to `MegaData`.
 * `n8n_backups/Latin_vence_hoy_y_vence4.json`: Updated workflow for `DnSpace` with red formatting.
 * `n8n_backups/Email_expires_SOON.json`: Legacy baseline workflow.
 * `n8n_backups/Email_expires_TODAY.json`: Legacy baseline workflow.
@@ -225,5 +232,10 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
 - **Upstream Node Field Reference in Sheet Updates**: Fixed issue where `Update row in sheet` nodes in `Mega expires SOON` and `Mega expires TODAY` were reading `Usuario` from `$json.Usuario` instead of referencing the upstream customer node (`$('If es link o zelle?')` / `$('Unir Datos con Link de Pago')`). Because Gmail/WhatsApp API output replaced `$json` with API response payloads, `$json.Usuario` was undefined, preventing Google Sheets from matching the client and writing `SENT4` / `SENT`.
 - **Multi-channel Downstream Variable Resolution**: Updated Telnyx SMS and WhatsApp nodes in `Mega expires TODAY` to reliably read customer variables (`Nombre`, `Email`, `Telefono`, `Ultimo_Monto`, `Crypto_Monto`, `checkout_url`) from upstream source nodes.
 - **Direct Production Deployment & Verification**: Deployed the patched workflow definitions directly to the live n8n instance (`https://n8n.ac4.club/`) via Public REST API for both `F7M6sLe1lo4zUObT` (`Mega expires SOON`) and `943Yu3CZMD4dzRCI` (`Mega expires TODAY`). Verified that both workflows are active (`active: true`), configured with verified sheet ID `51202947`, and correctly reading upstream variables.
+
+### 2026-09-14 - 2026-09-16
+- **New Workflow `Sync Mega to MegaData` (`Lcyro95g4yg39bdD`)**: Created and activated pipeline to sync and structure all Mega subscription records into the `MegaData` tab in `Clientes TotalTV`.
+- **Phone Pre-validation (`If Celular`)**: Added conditional validation nodes `If Celular Zelle` and `If Celular Link` in `Mega expires TODAY` (`943Yu3CZMD4dzRCI`) to evaluate `can_send_sms` before calling Telnyx SMS, bypassing SMS gracefully when no phone is present and writing `SENT` directly to Google Sheets.
+
 
 

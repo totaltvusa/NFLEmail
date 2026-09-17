@@ -90,7 +90,7 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
     .urgency-badge {
         display: inline-block;
         background-color: #000000;
-        color: #FE2659;
+        color: #FE2659 !important;
         font-weight: 800;
         font-size: 11.5px;
         padding: 7px 18px;
@@ -99,6 +99,7 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
         text-transform: uppercase;
         letter-spacing: 1.2px;
         border: 1.5px solid #FE2659;
+        text-decoration: none;
     }
 
     /* Headings */
@@ -122,8 +123,10 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
         line-height: 1.6;
     }
 
-    /* Countdown Callout Box (Black background with TotalTV Logo Pink accent & borders) */
+    /* Countdown Callout Box (Clickable Black Card) */
     .countdown-box {
+        display: block;
+        text-decoration: none;
         background-color: #000000;
         border-left: 5px solid #FE2659;
         border-radius: 12px;
@@ -132,6 +135,7 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
         border-top: 1px solid #27272a;
         border-right: 1px solid #27272a;
         border-bottom: 1px solid #27272a;
+        box-sizing: border-box;
     }
 
     .box-title {
@@ -186,14 +190,17 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
         font-size: 15px;
     }
 
-    /* Price Callout Banner (Total Black Background & Logo Color Tagline) */
+    /* Price Callout Banner (Clickable Total Black Background) */
     .price-banner {
+        display: block;
+        text-decoration: none;
         background-color: #000000;
         border-radius: 14px;
         padding: 24px 20px;
         margin: 26px 0;
         text-align: center;
         border: 1px solid #27272a;
+        box-sizing: border-box;
     }
 
     .price-tagline {
@@ -405,7 +412,9 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
         <div class="content">
             
             <div style="text-align: center;">
-                <span class="urgency-badge">⚾ THE OCTOBER CLASSIC IS HERE • STARTS SEPT 29</span>
+                <a href="http://totaltvusa.com/" target="_blank" class="urgency-badge">
+                    ⚾ THE OCTOBER CLASSIC IS HERE • STARTS SEPT 29
+                </a>
             </div>
 
             <h1 class="main-headline" style="text-align: center;">
@@ -417,15 +426,15 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
                 The regular season is down to the wire and the most exciting month in baseball is about to begin. <strong>Don't wait until the opening pitch to get ready.</strong> Ensure you and your friends enjoy every walk-off, every strikeout, and the entire road to the World Series with the most complete and reliable viewing experience.
             </p>
 
-            <!-- COUNTDOWN / URGENCY BOX (Total Black with TotalTV Logo Pink Accent) -->
-            <div class="countdown-box">
+            <!-- COUNTDOWN / URGENCY BOX (Clickable Black Box linked to totaltvusa.com) -->
+            <a href="http://totaltvusa.com/" target="_blank" class="countdown-box">
                 <div class="box-title">
                     ⏱️ Avoid Last-Minute Setup Rush
                 </div>
                 <p class="box-desc">
                     Get your screen ready before the Wild Card opener. <strong>Set up your TotalTV access today</strong> and stream seamlessly from game one to the final out of the World Series.
                 </p>
-            </div>
+            </a>
 
             <!-- FEATURES LIST -->
             <div class="features-card">
@@ -453,12 +462,12 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
                 </div>
             </div>
 
-            <!-- 1. PRICE BANNER (Pure Black Background & Logo Color Title) -->
-            <div class="price-banner">
+            <!-- 1. PRICE BANNER (Clickable Pure Black Background linked to totaltvusa.com) -->
+            <a href="http://totaltvusa.com/" target="_blank" class="price-banner">
                 <div class="price-tagline">Premium Live Sports at the Best Value</div>
                 <div class="price-amount">Plans Starting from Only $9</div>
                 <div class="price-subtext">No Contracts • Cancel Anytime</div>
-            </div>
+            </a>
 
             <!-- 2. DEMO 24 HOURS BOX -->
             <div class="demo-box">
@@ -470,7 +479,7 @@ body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
                     <a href="https://wa.me/13059861096?text=Hello!%20I%20want%20my%20free%2024-hour%20TotalTV%20demo" target="_blank" class="demo-btn demo-btn-wa">
                         💬 Request Demo on WhatsApp
                     </a>
-                    <a href="https://facebook.com/totaltvusa" target="_blank" class="demo-btn demo-btn-fb">
+                    <a href="https://m.me/TotalTv2025" target="_blank" class="demo-btn demo-btn-fb">
                         📘 Request Demo on Facebook
                     </a>
                     <a href="http://totaltvusa.com/" target="_blank" class="demo-btn demo-btn-web">

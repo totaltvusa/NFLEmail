@@ -9,7 +9,7 @@
 ## 1. Project Overview & Scope
 
 This repository manages two key operational systems for **Total TV USA**:
-1. **Email Marketing Campaigns**: HTML email templates for NFL season campaigns and promotional blasts (`nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
+1. **Email Marketing Campaigns**: HTML email templates for sports seasons and promotional blasts (`october_sports_email.html`, `mlb_playoffs_email.html`, `nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
 2. **Automated Expiration & Renewal Pipelines (n8n)**: Workflows running on self-hosted n8n (`https://n8n.ac4.club/`) that monitor subscription expiration dates in Google Sheets, route customers based on payment methods, dispatch notifications via Gmail, Telnyx SMS, and WhatsApp Cloud API, generate NowPayments crypto discount links, and mark statuses back in the spreadsheet.
 
 ---
@@ -249,6 +249,14 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
 ### 2026-10-05
 - **Comprehensive n8n Workflow & Tool Audit**: Verified production status across all 43 active and inactive n8n workflows. Confirmed core notification workflows (`Mega expires TODAY`, `Mega expires SOON`, `Latin vence hoy y vence4`, `Sync Mega to MegaData`) remain active with verified sheet IDs and Claude Haiku 4.5 agent configurations.
 - **Git & Environment Alignment**: Both `NFL Email` and `kommo-chatwoot` branches are fully synchronized with `origin/main` with zero secret exposure.
+- **October Multi-Sports Email Campaign (`october_sports_email.html`)**:
+  - Created and launched responsive HTML email campaign focused on October's peak multi-sports calendar (Baseball Postseason / October Classic, Football in Full Action, Elite Soccer & Tournaments, Ice Hockey Face-Offs, Basketball Preseason & Opening Night).
+  - Designed and generated high-resolution cinematic hero banner `october_sports_banner.jpg` featuring live multi-sports action on a smart TV with the TotalTV logo watermark.
+  - Implemented generic sport phrasing guidelines: avoids repetitive use of "October" and uses descriptive sport names without direct organizational acronyms.
+  - Built interactive dark cards with TotalTV pink accents (`#FE2659`), with all card containers and imagery hyperlinked directly to `http://totaltvusa.com/`.
+  - Configured 24-Hour Free Demo section with multi-channel booking channels (WhatsApp `https://wa.me/13059861096...`, Facebook Messenger `https://m.me/TotalTv2025`, and Web `http://totaltvusa.com/`).
+  - Promoted 20% discount offer for cryptocurrency payments (USDT, Bitcoin, etc.) and plans starting at $9 with no contract or blackouts.
+  - Sanitized customer support messaging across all sections.
 
 
 

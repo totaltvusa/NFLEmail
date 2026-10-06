@@ -246,5 +246,10 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
   - Highlighted extensive catalog scaling (50,000+ on-demand movies & series + 10,000 live channels) and entry pricing starting from $9.
   - Sanitized all support messaging removing inaccurate 24/7 claims.
 
+### 2026-10-05
+- **Comprehensive n8n Workflow & Tool Audit**: Verified production status across all 43 active and inactive n8n workflows. Confirmed core notification workflows (`Mega expires TODAY`, `Mega expires SOON`, `Latin vence hoy y vence4`, `Sync Mega to MegaData`) remain active with verified sheet IDs and Claude Haiku 4.5 agent configurations.
+- **Git & Environment Alignment**: Both `NFL Email` and `kommo-chatwoot` branches are fully synchronized with `origin/main` with zero secret exposure.
+
+
 
 

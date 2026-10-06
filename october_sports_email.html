@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 October Sports Overload: MLB, NFL, NHL, MLS, NBA & Champions League in One Place!</title>
+<!--[if mso]>
+<style type="text/css">
+body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
+</style>
+<![endif]-->
+<style>
+    /* Reset & Base Styles */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f1f5f9;
+        color: #1e293b;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: collapse;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        display: block;
+        max-width: 100%;
+    }
+
+    /* Container Card */
+    .email-wrapper {
+        width: 100%;
+        background-color: #f1f5f9;
+        padding: 24px 12px;
+    }
+
+    .email-container {
+        width: 100%;
+        max-width: 620px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    }
+
+    /* Header Bar */
+    .header-bar {
+        background: #ffffff;
+        padding: 22px 28px;
+        border-bottom: 2px solid #f1f5f9;
+        text-align: center;
+    }
+
+    .header-logo {
+        height: 48px;
+        margin: 0 auto;
+        display: inline-block;
+    }
+
+    /* Hero Banner */
+    .hero-banner-container {
+        position: relative;
+        background-color: #000000;
+        overflow: hidden;
+    }
+
+    .hero-banner-img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Content Area */
+    .content {
+        padding: 34px 28px;
+    }
+
+    /* Urgency Top Header Badge (Black background with TotalTV Logo Pink border & text) */
+    .urgency-badge {
+        display: inline-block;
+        background-color: #000000;
+        color: #FE2659 !important;
+        font-weight: 800;
+        font-size: 11.5px;
+        padding: 7px 18px;
+        border-radius: 30px;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        border: 1.5px solid #FE2659;
+        text-decoration: none;
+    }
+
+    /* Headings */
+    .main-headline {
+        font-size: 26px;
+        font-weight: 900;
+        color: #0f172a;
+        line-height: 1.25;
+        margin: 0 0 14px 0;
+        letter-spacing: -0.5px;
+    }
+
+    .highlight-pink {
+        color: #FE2659;
+    }
+
+    .lead-paragraph {
+        font-size: 15.5px;
+        color: #334155;
+        margin-bottom: 18px;
+        line-height: 1.6;
+    }
+
+    /* Countdown Callout Box (Clickable Black Card) */
+    .countdown-box {
+        display: block;
+        text-decoration: none;
+        background-color: #000000;
+        border-left: 5px solid #FE2659;
+        border-radius: 12px;
+        padding: 20px 22px;
+        margin: 22px 0;
+        border-top: 1px solid #27272a;
+        border-right: 1px solid #27272a;
+        border-bottom: 1px solid #27272a;
+        box-sizing: border-box;
+    }
+
+    .box-title {
+        color: #FE2659;
+        font-size: 16.5px;
+        font-weight: 900;
+        margin-bottom: 6px;
+    }
+
+    .box-desc {
+        color: #e2e8f0;
+        font-size: 14px;
+        margin: 0;
+        line-height: 1.55;
+    }
+
+    /* Features Bullet List */
+    .features-card {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 22px 20px;
+        margin: 24px 0;
+    }
+
+    .features-card-title {
+        font-size: 15.5px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0 0 14px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .bullet-item {
+        font-size: 14.5px;
+        color: #334155;
+        margin-bottom: 12px;
+        position: relative;
+        padding-left: 28px;
+        line-height: 1.5;
+    }
+
+    .bullet-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .bullet-icon {
+        position: absolute;
+        left: 0;
+        top: 1px;
+        font-size: 15px;
+    }
+
+    /* Price Callout Banner (Clickable Total Black Background) */
+    .price-banner {
+        display: block;
+        text-decoration: none;
+        background-color: #000000;
+        border-radius: 14px;
+        padding: 24px 20px;
+        margin: 26px 0;
+        text-align: center;
+        border: 1px solid #27272a;
+        box-sizing: border-box;
+    }
+
+    .price-tagline {
+        font-size: 14px;
+        color: #FE2659;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        font-weight: 900;
+        margin-bottom: 4px;
+    }
+
+    .price-amount {
+        font-size: 34px;
+        font-weight: 900;
+        color: #ffffff;
+        margin: 4px 0;
+    }
+
+    .price-subtext {
+        font-size: 13.5px;
+        color: #94a3b8;
+    }
+
+    /* Demo 24h Box */
+    .demo-box {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1px solid #cbd5e1;
+        border-radius: 14px;
+        padding: 22px 20px;
+        margin: 26px 0;
+        text-align: center;
+    }
+
+    .demo-title {
+        color: #0f172a;
+        font-size: 17px;
+        font-weight: 900;
+        margin-bottom: 6px;
+    }
+
+    .demo-desc {
+        color: #475569;
+        font-size: 14px;
+        margin: 0 0 16px 0;
+        line-height: 1.5;
+    }
+
+    /* Demo Channels Buttons */
+    .demo-channels-grid {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .demo-btn {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 30px;
+        font-size: 13.5px;
+        font-weight: 800;
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .demo-btn-wa {
+        background-color: #25d366;
+        color: #ffffff !important;
+    }
+
+    .demo-btn-fb {
+        background-color: #1877f2;
+        color: #ffffff !important;
+    }
+
+    .demo-btn-web {
+        background-color: #000000;
+        color: #ffffff !important;
+    }
+
+    /* Primary CTA Button */
+    .cta-container {
+        text-align: center;
+        margin: 30px 0 24px 0;
+    }
+
+    .cta-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #FE2659 0%, #d81444 100%);
+        color: #ffffff !important;
+        font-size: 17px;
+        font-weight: 900;
+        text-decoration: none;
+        padding: 16px 36px;
+        border-radius: 50px;
+        box-shadow: 0 8px 20px rgba(254, 38, 89, 0.35);
+        letter-spacing: 0.5px;
+        border: 1px solid #fda4af;
+    }
+
+    .cta-subtext {
+        font-size: 13px;
+        color: #64748b;
+        margin-top: 10px;
+        font-weight: 500;
+    }
+
+    /* CRYPTO DISCOUNT PROMINENT BOX (At the bottom) */
+    .crypto-promo-box {
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        border: 2px dashed #10b981;
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin: 26px 0 10px 0;
+        text-align: center;
+    }
+
+    .crypto-badge {
+        display: inline-block;
+        background-color: #059669;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 4px 12px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .crypto-title {
+        color: #065f46;
+        font-size: 17.5px;
+        font-weight: 900;
+        margin-bottom: 4px;
+    }
+
+    .crypto-desc {
+        color: #047857;
+        font-size: 14px;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+        background-color: #000000;
+        color: #94a3b8;
+        padding: 26px 22px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.6;
+        border-top: 1px solid #1e293b;
+    }
+
+    .footer a {
+        color: #FE2659;
+        text-decoration: none;
+    }
+
+    .footer-divider {
+        margin: 14px auto;
+        width: 50px;
+        height: 2px;
+        background-color: #27272a;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .content {
+            padding: 22px 16px !important;
+        }
+        .main-headline {
+            font-size: 21px !important;
+        }
+        .cta-button {
+            width: 100% !important;
+            box-sizing: border-box !important;
+            padding: 16px 20px !important;
+        }
+        .demo-btn {
+            width: 100% !important;
+            box-sizing: border-box !important;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="email-wrapper">
+    <div class="email-container">
+        
+        <!-- HEADER (Logo linked to totaltvusa.com) -->
+        <div class="header-bar">
+            <a href="http://totaltvusa.com/" target="_blank" style="text-decoration: none;">
+                <img src="https://raw.githubusercontent.com/totaltvusa/NFLEmail/main/totaltv_logo.png" alt="TotalTV" class="header-logo" border="0" style="display: block; margin: 0 auto; max-height: 48px; width: auto;">
+            </a>
+        </div>
+
+        <!-- HERO BANNER (Image linked to totaltvusa.com) -->
+        <div class="hero-banner-container">
+            <a href="http://totaltvusa.com/" target="_blank" style="display: block; text-decoration: none;">
+                <img src="https://raw.githubusercontent.com/totaltvusa/NFLEmail/main/october_sports_banner.jpg" alt="October Sports Overload on TotalTV" class="hero-banner-img" border="0">
+            </a>
+        </div>
+
+        <!-- MAIN BODY CONTENT -->
+        <div class="content">
+            
+            <div style="text-align: center;">
+                <a href="http://totaltvusa.com/" target="_blank" class="urgency-badge">
+                    🔥 OCTOBER SPORTS OVERLOAD • STREAM EVERY GAME LIVE
+                </a>
+            </div>
+
+            <h1 class="main-headline" style="text-align: center;">
+                October is Packed with <span class="highlight-pink">Non-Stop Sports</span>.<br>
+                Are You Ready to Watch It All?
+            </h1>
+
+            <p class="lead-paragraph">
+                October is the ultimate dream month for sports lovers. The <strong>MLB Postseason</strong> is in full swing, the <strong>NFL</strong> is delivering thrilling action every week, the <strong>NHL</strong> and <strong>MLS</strong> are live, the <strong>NBA</strong> is heating up in preseason, and the <strong>UEFA Champions League</strong> brings world-class soccer drama.
+            </p>
+
+            <p class="lead-paragraph">
+                Why juggle multiple costly subscriptions or deal with frustrating regional blackouts? <strong>With TotalTV, you get every game, every league, and every championship on any screen at an unbeatable price.</strong>
+            </p>
+
+            <!-- COUNTDOWN / URGENCY BOX (Clickable Black Box linked to totaltvusa.com) -->
+            <a href="http://totaltvusa.com/" target="_blank" class="countdown-box">
+                <div class="box-title">
+                    ⚡ Never Miss a Single Play
+                </div>
+                <p class="box-desc">
+                    Experience ultra-fast, high-definition streaming on all your devices. <strong>Set up your TotalTV sports pass today</strong> and enjoy zero blackouts, instant switching, and total sports freedom.
+                </p>
+            </a>
+
+            <!-- FEATURES LIST -->
+            <div class="features-card">
+                <div class="features-card-title">🏆 Your All-Access Sports Universe</div>
+                
+                <div class="bullet-item">
+                    <span class="bullet-icon">⚾</span>
+                    <strong>MLB Postseason & World Series:</strong> Stream every inning of the Division Series, Championship Series, and Fall Classic live.
+                </div>
+                <div class="bullet-item">
+                    <span class="bullet-icon">🏈</span>
+                    <strong>NFL & College Football:</strong> Sunday matchups, Monday & Thursday Night Football, RedZone action, and top NCAA games.
+                </div>
+                <div class="bullet-item">
+                    <span class="bullet-icon">⚽</span>
+                    <strong>UEFA Champions League & MLS:</strong> Elite European matchdays, Premier League, LaLiga, and high-stakes MLS playoff races.
+                </div>
+                <div class="bullet-item">
+                    <span class="bullet-icon">🏒</span>
+                    <strong>NHL Hockey & 🏀 NBA Basketball:</strong> Opening puck drops of the new NHL season plus NBA preseason into opening night.
+                </div>
+                <div class="bullet-item">
+                    <span class="bullet-icon">📺</span>
+                    <strong>50,000+ Movies & Series + 10,000 Channels:</strong> Compatible with FireStick, Smart TVs, Android TV, Apple TV, iPhone, iPad, Mac & PC.
+                </div>
+            </div>
+
+            <!-- 1. PRICE BANNER (Clickable Pure Black Background linked to totaltvusa.com) -->
+            <a href="http://totaltvusa.com/" target="_blank" class="price-banner">
+                <div class="price-tagline">Premium Live Sports at the Best Value</div>
+                <div class="price-amount">Plans Starting from Only $9</div>
+                <div class="price-subtext">No Contracts • Cancel Anytime</div>
+            </a>
+
+            <!-- 2. DEMO 24 HOURS BOX -->
+            <div class="demo-box">
+                <div class="demo-title">🎁 Try TotalTV Free for 24 Hours • Zero Obligation!</div>
+                <p class="demo-desc">
+                    Test our stream quality, speed, and massive channel selection for <strong>24 full hours with no payment or credit card required</strong>. Request your free trial through any of our official channels:
+                </p>
+                <div class="demo-channels-grid">
+                    <a href="https://wa.me/13059861096?text=Hello!%20I%20want%20my%20free%2024-hour%20TotalTV%20sports%20demo" target="_blank" class="demo-btn demo-btn-wa">
+                        💬 Request Demo on WhatsApp
+                    </a>
+                    <a href="https://m.me/TotalTv2025" target="_blank" class="demo-btn demo-btn-fb">
+                        📘 Request Demo on Facebook
+                    </a>
+                    <a href="http://totaltvusa.com/" target="_blank" class="demo-btn demo-btn-web">
+                        🌐 Request Demo on Website
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. PRIMARY CTA BUTTON -->
+            <div class="cta-container">
+                <a href="http://totaltvusa.com/" target="_blank" class="cta-button">
+                    GET YOUR ALL-ACCESS SPORTS PASS NOW 🏆
+                </a>
+                <div class="cta-subtext">Quick & easy setup in minutes • Watch on your big screen</div>
+            </div>
+
+            <!-- 4. SPECIAL CRYPTO OFFER BOX (At the bottom) -->
+            <div class="crypto-promo-box">
+                <span class="crypto-badge">💰 SPECIAL CRYPTO OFFER</span>
+                <div class="crypto-title">Save an Extra 20% OFF with Crypto!</div>
+                <p class="crypto-desc">
+                    Pay using USDT, Bitcoin, or other cryptocurrencies and get an automatic <strong>20% discount</strong> on your subscription.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p style="margin: 0 0 8px 0; font-weight: 700; color: #cbd5e1; font-size: 13.5px;">
+                TotalTV USA • The Ultimate Sports & Entertainment Experience
+            </p>
+            <p style="margin: 0; color: #94a3b8;">
+                Visit us at <a href="http://totaltvusa.com/" target="_blank">totaltvusa.com</a>
+            </p>
+            <div class="footer-divider"></div>
+            <p style="margin: 0; font-size: 11px; color: #64748b;">
+                You are receiving this email because you are a valued TotalTV customer or subscriber.<br>
+                &copy; 2026 TotalTV USA. All rights reserved.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

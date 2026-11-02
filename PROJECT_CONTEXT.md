@@ -9,7 +9,7 @@
 ## 1. Project Overview & Scope
 
 This repository manages two key operational systems for **Total TV USA**:
-1. **Email Marketing Campaigns**: HTML email templates for sports seasons and promotional blasts (`october_sports_email.html`, `mlb_playoffs_email.html`, `nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
+1. **Email Marketing Campaigns**: HTML email templates for sports seasons and promotional blasts (`totaltv_comparison_email.html`, `october_sports_email.html`, `mlb_playoffs_email.html`, `nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
 2. **Automated Expiration & Renewal Pipelines (n8n)**: Workflows running on self-hosted n8n (`https://n8n.ac4.club/`) that monitor subscription expiration dates in Google Sheets, route customers based on payment methods, dispatch notifications via Gmail, Telnyx SMS, and WhatsApp Cloud API, generate NowPayments crypto discount links, and mark statuses back in the spreadsheet.
 
 ---
@@ -256,7 +256,14 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
   - Built interactive dark cards with TotalTV pink accents (`#FE2659`), with all card containers and imagery hyperlinked directly to `http://totaltvusa.com/`.
   - Configured 24-Hour Free Demo section with multi-channel booking channels (WhatsApp `https://wa.me/13059861096...`, Facebook Messenger `https://m.me/TotalTv2025`, and Web `http://totaltvusa.com/`).
   - Promoted 20% discount offer for cryptocurrency payments (USDT, Bitcoin, etc.) and plans starting at $9 with no contract or blackouts.
-  - Sanitized customer support messaging across all sections.
+### 2026-11-01
+- **Cord-Cutting & Cable/Satellite Value Comparison Campaign (`totaltv_comparison_email.html`)**:
+  - Created responsive HTML email campaign focused on cost comparison between TotalTV USA vs traditional Cable TV, Satellite TV, and 3 standard streaming subscriptions ($140–$190+/mo traditional vs from $9/mo TotalTV).
+  - Calculated and demonstrated real annual consumer savings (saving upwards of $1,800/year).
+  - Designed and generated high-resolution cinematic hero banner `totaltv_value_banner.jpg` showing an expansive, modern smart TV interface with live sports, movies, and series, backlit with TotalTV pink ambiance and a branded TV watermark.
+  - Implemented strict brand protection: avoided mentioning specific corporate brand names (no cable, satellite, or streaming service names used).
+  - Integrated head-to-head comparison matrix, 24-hour free trial options (WhatsApp, Facebook Messenger `https://m.me/TotalTv2025`, and Web), and prominent 20% discount offer for cryptocurrency payments (down to $7.20/month).
+  - Strictly excluded customer support references across the email.
 
 
 

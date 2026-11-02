@@ -258,11 +258,11 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
   - Promoted 20% discount offer for cryptocurrency payments (USDT, Bitcoin, etc.) and plans starting at $9 with no contract or blackouts.
 ### 2026-11-01
 - **Cord-Cutting & Cable/Satellite Value Comparison Campaign (`totaltv_comparison_email.html`)**:
-  - Created responsive HTML email campaign focused on cost comparison between TotalTV USA vs traditional Cable TV, Satellite TV, and 3 standard streaming subscriptions ($140–$190+/mo traditional vs from $9/mo TotalTV).
+  - Created responsive HTML email campaign focused on cost comparison between TotalTV USA vs traditional Cable TV, Satellite TV, and 3 standard streaming subscriptions ($140–$190+/mo traditional vs from $9/mo TotalTV or $90/year).
   - Calculated and demonstrated real annual consumer savings (saving upwards of $1,800/year).
-  - Designed and generated high-resolution cinematic hero banner `totaltv_value_banner.jpg` showing an expansive, modern smart TV interface with live sports, movies, and series, backlit with TotalTV pink ambiance and a branded TV watermark.
+  - Integrated official high-resolution hero banner `totaltv_value_banner.jpg` ("The Best Entertainment for Your Family!", showcasing live sports, movies, and multi-device support).
   - Implemented strict brand protection: avoided mentioning specific corporate brand names (no cable, satellite, or streaming service names used).
-  - Integrated head-to-head comparison matrix, 24-hour free trial options (WhatsApp, Facebook Messenger `https://m.me/TotalTv2025`, and Web), and prominent 20% discount offer for cryptocurrency payments (down to $7.20/month).
+  - Integrated head-to-head comparison matrix with contract-free / cancel anytime terms, 24-hour free trial options (WhatsApp, Facebook Messenger `https://m.me/TotalTv2025`, and Web), and prominent 20% discount offer for cryptocurrency payments (down to $7.20/month).
   - Strictly excluded customer support references across the email.
 
 

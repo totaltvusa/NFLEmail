@@ -8,8 +8,8 @@
 
 ## 1. Project Overview & Scope
 
-This repository manages two key operational systems for **Total TV USA**:
-1. **Email Marketing Campaigns**: HTML email templates for sports seasons and promotional blasts (`totaltv_comparison_email.html`, `october_sports_email.html`, `mlb_playoffs_email.html`, `nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
+This repository manages two key operational systems for **Total TV USA** and **TvTotal24**:
+1. **Email Marketing Campaigns**: HTML email templates for sports seasons, promotional blasts, and value comparisons (`tvtotal24_comparison_email.html`, `totaltv_comparison_email.html`, `october_sports_email.html`, `mlb_playoffs_email.html`, `nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
 2. **Automated Expiration & Renewal Pipelines (n8n)**: Workflows running on self-hosted n8n (`https://n8n.ac4.club/`) that monitor subscription expiration dates in Google Sheets, route customers based on payment methods, dispatch notifications via Gmail, Telnyx SMS, and WhatsApp Cloud API, generate NowPayments crypto discount links, and mark statuses back in the spreadsheet.
 
 ---
@@ -265,6 +265,15 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
   - Integrated head-to-head comparison matrix with contract-free / cancel anytime terms, 24-hour free trial options (WhatsApp, Facebook Messenger `https://m.me/TotalTv2025`, and Web), and prominent 20% discount offer for cryptocurrency payments (down to $7.20/month).
   - Configured 3 campaign subject line / preview text variants targeting cord-cutters, value seekers, and risk-free trial users.
   - Strictly excluded customer support references across the email.
+
+### 2026-11-02
+- **TvTotal24 (Spanish) Comparison Campaign for Brevo (`tvtotal24_comparison_email.html`)**:
+  - Created responsive Spanish email campaign template tailored for Brevo mass delivery for **TvTotal24** (`https://tvtotal24.com/`).
+  - Added new brand assets: `tvtotal24_logo.png` (enlarged header display) and `tvtotal24_value_banner.jpg` (Spanish family entertainment banner with updated slogan *"Disfruta Más. Paga Menos"* and CTA button *"Pide tu Prueba ¡GRATIS!"*).
+  - Neon Green (`#00E676`) / deep dark design system matching TvTotal24 branding.
+  - Comparison table highlights 3 simultaneous screens, +5,000 live channels, +20,000 movies/series, contract-free, starting at $8/month ($84/year).
+  - Exclusive Binance promotional offer box: highlights reduced pricing of $5 USD/month or $50 USD/year when paying with Binance.
+  - Multi-channel free demo requests without 24h restrictions (WhatsApp +573009476271, Telegram @TvTotal24bot, Instagram @tvtotal24, and Web).
 
 
 

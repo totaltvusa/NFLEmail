@@ -9,7 +9,7 @@
 ## 1. Project Overview & Scope
 
 This repository manages two key operational systems for **Total TV USA** and **TvTotal24**:
-1. **Email Marketing Campaigns**: HTML email templates for sports seasons, promotional blasts, and value comparisons (`tvtotal24_comparison_email.html`, `totaltv_comparison_email.html`, `october_sports_email.html`, `mlb_playoffs_email.html`, `nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
+1. **Email Marketing Campaigns**: HTML email templates for sports seasons, promotional blasts, and value comparisons (`black_friday_email.html`, `tvtotal24_comparison_email.html`, `totaltv_comparison_email.html`, `october_sports_email.html`, `mlb_playoffs_email.html`, `nfl_urgent_light_email.html`, `nfl_kickoff_email.html`).
 2. **Automated Expiration & Renewal Pipelines (n8n)**: Workflows running on self-hosted n8n (`https://n8n.ac4.club/`) that monitor subscription expiration dates in Google Sheets, route customers based on payment methods, dispatch notifications via Gmail, Telnyx SMS, and WhatsApp Cloud API, generate NowPayments crypto discount links, and mark statuses back in the spreadsheet.
 
 ---
@@ -274,6 +274,16 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
   - Comparison table highlights 3 simultaneous screens, +5,000 live channels, +20,000 movies/series, contract-free, starting at $8/month ($84/year).
   - Exclusive Binance promotional offer box: highlights reduced pricing of $5 USD/month or $50 USD/year when paying with Binance.
   - Multi-channel free demo requests without 24h restrictions (WhatsApp +573009476271, Telegram @TvTotal24bot, Instagram @tvtotal24, and Web).
+
+### 2026-11-19
+- **Black Friday "Free Months Activated" Campaign (`black_friday_email.html`)**:
+  - Created responsive HTML email template for TotalTV USA Black Friday special event (valid through November 30).
+  - Designed and generated high-resolution cinematic hero banner `black_friday_banner.jpg` ("BLACK FRIDAY SUPER DEAL - TOTALTV" with live sports, football, basketball, movies, and neon magenta illumination).
+  - Featured Free Months Deals: Buy 3 Months $\rightarrow$ Get 1 Month FREE (4 months total); Buy 1 Year (12 Months) $\rightarrow$ Get 3 Months FREE (15 months total).
+  - Stacked savings offer: 20% extra OFF when paying with Cryptocurrencies via NowPayments or Bitcoin.
+  - Supported and documented eligible checkout payment methods: Zelle, Cash App (via Lightning), NowPayments (Crypto), and direct Bitcoin (Crypto) at `http://totaltvusa.com/`.
+  - Multi-channel 24h free trial links (WhatsApp, Facebook Messenger `https://m.me/TotalTv2025`, Web).
+  - Strictly excluded customer support mentions across all sections.
 
 
 

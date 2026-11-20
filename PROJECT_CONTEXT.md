@@ -278,10 +278,10 @@ All active workflows are backed up as JSON in the `n8n_backups/` directory:
 ### 2026-11-19
 - **Black Friday "Free Months Activated" Campaign (`black_friday_email.html`)**:
   - Created responsive HTML email template for TotalTV USA Black Friday special event (valid through November 30).
-  - Designed and generated high-resolution cinematic hero banner `black_friday_banner.jpg` ("BLACK FRIDAY SUPER DEAL - TOTALTV" with live sports, football, basketball, movies, and neon magenta illumination).
+  - Designed and generated high-resolution cinematic hero banner `black_friday_banner.jpg` (friends cheering and enjoying live sports on a big 4K TV with celebratory metallic "BLACK FRIDAY SUPER DEAL" banner, no dates/years, and TotalTV watermark bug).
   - Featured Free Months Deals: Buy 3 Months $\rightarrow$ Get 1 Month FREE (4 months total); Buy 1 Year (12 Months) $\rightarrow$ Get 3 Months FREE (15 months total).
-  - Stacked savings offer: 20% extra OFF when paying with Cryptocurrencies via NowPayments or Bitcoin.
-  - Supported and documented eligible checkout payment methods: Zelle, Cash App (via Lightning), NowPayments (Crypto), and direct Bitcoin (Crypto) at `http://totaltvusa.com/`.
+  - Refined crypto savings box: offers 20% extra OFF paying with Cryptocurrencies (Bitcoin, USDT, USDC, ETH, etc.).
+  - Removed "instant activation" mentions and removed the separate accepted payment methods card for a cleaner presentation.
   - Multi-channel 24h free trial links (WhatsApp, Facebook Messenger `https://m.me/TotalTv2025`, Web).
   - Strictly excluded customer support mentions across all sections.
 
